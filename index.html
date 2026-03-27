@@ -3,16 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Acquaville Park Show — Aqui, o calor vira aventura! 🌊</title>
-  <meta name="description" content="O único parque aquático de Irecê, BA. Piscinas, toboáguas, área infantil e muito mais! Garanta seu ingresso com desconto!">
+  <title>Acquaville Park Show — O Parque Aquático de Irecê</title>
+  <meta name="description" content="O único parque aquático de Irecê, BA. Piscinas, toboáguas, área infantil, restaurante, kiosques e muito mais. Venha se divertir com a família!">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
   <style>
-    /* ══════════════════════════════════════════
-       BASE
-    ══════════════════════════════════════════ */
+    /* ─── RESET & BASE ─── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
@@ -21,13 +19,13 @@
       --blue-dd: #003566;
       --cyan:    #00D4FF;
       --orange:  #FF6B35;
-      --orange-d:#E84E0F;
       --yellow:  #FFD60A;
       --green:   #06D6A0;
-      --pink:    #FF4D8D;
-      --purple:  #7B2FBE;
       --white:   #FFFFFF;
-      --ink:     #002855;
+      --ink:     #1a2e4a;
+      --gray:    #f4f7fb;
+      --gray-2:  #e8eef6;
+      --text:    #3a4a5c;
     }
 
     html { scroll-behavior: smooth; }
@@ -35,7 +33,7 @@
     body {
       font-family: 'Nunito', sans-serif;
       color: var(--ink);
-      background: var(--white);
+      background: #fff;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
     }
@@ -44,2000 +42,1703 @@
     a   { text-decoration: none; color: inherit; }
 
     .container {
-      max-width: 1160px;
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 0 24px;
+      padding: 0 28px;
     }
 
-    /* ══════════════════════════════════════════
-       BUBBLES LAYER (global background)
-    ══════════════════════════════════════════ */
-    #bubbles {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-      overflow: hidden;
+    /* ─── TYPOGRAPHY ─── */
+    .section-label {
+      display: inline-block;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: .75rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 12px;
     }
-    .bubble {
-      position: absolute;
-      bottom: -60px;
-      border-radius: 50%;
-      background: rgba(0,150,199,.12);
-      border: 2px solid rgba(0,212,255,.2);
-      animation: riseUp linear infinite;
+    h2.section-title {
+      font-family: 'Fredoka One', cursive;
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--blue-dd);
+      line-height: 1.1;
+      margin-bottom: 16px;
     }
-    @keyframes riseUp {
-      0%   { transform: translateY(0) scale(1); opacity: .6; }
-      80%  { opacity: .3; }
-      100% { transform: translateY(-110vh) scale(1.3); opacity: 0; }
+    h2.section-title span { color: var(--blue); }
+    .section-desc {
+      font-size: 1.05rem;
+      color: var(--text);
+      line-height: 1.75;
+      max-width: 560px;
     }
 
-    /* ══════════════════════════════════════════
-       NAVBAR
-    ══════════════════════════════════════════ */
+    /* ─── BUTTONS ─── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: 50px;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: .95rem;
+      cursor: pointer;
+      transition: transform .2s, box-shadow .2s;
+      border: none;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.18); }
+    .btn:active { transform: translateY(0); }
+
+    .btn-primary {
+      background: var(--orange);
+      color: #fff;
+    }
+    .btn-secondary {
+      background: var(--white);
+      color: var(--blue-dd);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      border: 2px solid rgba(255,255,255,.6);
+    }
+    .btn-outline:hover { background: rgba(255,255,255,.15); }
+    .btn-blue {
+      background: var(--blue);
+      color: #fff;
+    }
+    .btn-dark {
+      background: var(--blue-dd);
+      color: #fff;
+    }
+
+    /* ─── NAVBAR ─── */
     .navbar {
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 1000;
-      padding: 14px 0;
-      transition: all .3s;
+      padding: 0;
+      transition: background .3s, box-shadow .3s;
     }
-    .navbar.solid {
+    .navbar.scrolled {
       background: var(--blue-dd);
-      box-shadow: 0 4px 24px rgba(0,30,80,.35);
-      padding: 10px 0;
+      box-shadow: 0 4px 20px rgba(0,20,60,.35);
     }
     .nav-inner {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      height: 72px;
       gap: 12px;
     }
-    .nav-logo {
-      font-family: 'Fredoka One', cursive;
-      font-size: 1.6rem;
-      color: var(--white);
-      letter-spacing: .5px;
-      line-height: 1;
+    .nav-logo img {
+      height: 48px;
+      width: auto;
+      filter: drop-shadow(0 2px 6px rgba(0,0,0,.3));
     }
-    .nav-logo span { color: var(--cyan); }
-
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 2px;
+      gap: 6px;
+      list-style: none;
     }
     .nav-links a {
-      color: rgba(255,255,255,.85);
       font-weight: 700;
-      font-size: .88rem;
-      padding: 7px 14px;
-      border-radius: 99px;
-      transition: all .2s;
+      font-size: .9rem;
+      color: rgba(255,255,255,.9);
+      padding: 8px 14px;
+      border-radius: 8px;
+      transition: background .2s, color .2s;
     }
-    .nav-links a:hover { background: rgba(255,255,255,.15); color: var(--white); }
-
-    .nav-ctas { display: flex; gap: 8px; }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
+    .nav-links a:hover {
+      background: rgba(255,255,255,.15);
+      color: #fff;
+    }
+    .nav-cta {
+      display: flex;
       gap: 8px;
-      padding: 13px 26px;
-      border-radius: 99px;
-      font-family: 'Nunito', sans-serif;
+      align-items: center;
+    }
+    .nav-ticket {
+      background: var(--orange);
+      color: #fff;
       font-weight: 800;
-      font-size: .95rem;
-      cursor: pointer;
-      border: none;
-      line-height: 1;
-      transition: transform .2s, box-shadow .2s, filter .2s;
+      font-size: .88rem;
+      padding: 9px 20px;
+      border-radius: 50px;
+      transition: transform .2s, box-shadow .2s;
       white-space: nowrap;
     }
-    .btn:hover { transform: translateY(-3px) scale(1.03); }
-    .btn:active { transform: scale(.97); }
+    .nav-ticket:hover { transform: translateY(-1px); box-shadow: 0 4px 14px rgba(255,107,53,.5); }
 
-    .btn-lg  { padding: 18px 38px; font-size: 1.1rem; }
-    .btn-sm  { padding: 10px 20px; font-size: .85rem; }
-
-    .btn-orange {
-      background: linear-gradient(135deg, var(--orange), #ff3d00);
-      color: var(--white);
-      box-shadow: 0 6px 24px rgba(255,107,53,.5);
-    }
-    .btn-orange:hover { box-shadow: 0 10px 36px rgba(255,107,53,.7); filter: brightness(1.05); }
-
-    .btn-yellow {
-      background: linear-gradient(135deg, var(--yellow), #ffaa00);
-      color: var(--ink);
-      box-shadow: 0 6px 24px rgba(255,214,10,.45);
-    }
-    .btn-yellow:hover { box-shadow: 0 10px 36px rgba(255,214,10,.65); }
-
-    .btn-cyan {
-      background: linear-gradient(135deg, var(--cyan), var(--blue));
-      color: var(--white);
-      box-shadow: 0 6px 24px rgba(0,212,255,.4);
-    }
-    .btn-cyan:hover { box-shadow: 0 10px 36px rgba(0,212,255,.6); }
-
-    .btn-white {
-      background: var(--white);
-      color: var(--orange);
-      font-weight: 900;
-      box-shadow: 0 4px 20px rgba(0,0,0,.18);
-    }
-    .btn-white:hover { box-shadow: 0 8px 32px rgba(0,0,0,.25); }
-
-    .btn-ghost {
-      background: rgba(255,255,255,.12);
-      color: var(--white);
-      border: 2.5px solid rgba(255,255,255,.5);
-      backdrop-filter: blur(8px);
-    }
-    .btn-ghost:hover { background: rgba(255,255,255,.22); border-color: var(--white); }
-
-    .btn-green {
-      background: linear-gradient(135deg, #25D366, #1aaa52);
-      color: var(--white);
-      box-shadow: 0 6px 24px rgba(37,211,102,.4);
-    }
-
-    .hamburger {
+    /* hamburger */
+    .nav-hamburger {
       display: none;
       flex-direction: column;
       gap: 5px;
       cursor: pointer;
-      background: none;
-      border: none;
-      padding: 6px;
+      padding: 8px;
     }
-    .hamburger span {
+    .nav-hamburger span {
       display: block;
-      width: 26px; height: 2.5px;
-      background: var(--white);
+      width: 24px;
+      height: 2.5px;
+      background: #fff;
       border-radius: 2px;
       transition: all .3s;
     }
 
-    .mob-menu {
+    /* mobile nav */
+    .mobile-menu {
       display: none;
       position: fixed;
-      inset: 0;
+      top: 72px; left: 0; right: 0;
       background: var(--blue-dd);
-      z-index: 999;
+      padding: 20px 28px;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
+      gap: 4px;
+      z-index: 999;
+      border-top: 1px solid rgba(255,255,255,.1);
     }
-    .mob-menu.open { display: flex; }
-    .mob-close {
-      position: absolute;
-      top: 18px; right: 22px;
-      color: var(--white);
-      font-size: 1.8rem;
-      cursor: pointer;
-      background: none; border: none;
-      line-height: 1;
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      color: rgba(255,255,255,.9);
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255,255,255,.08);
     }
-    .mob-menu a {
-      color: var(--white);
-      font-size: 1.25rem;
-      font-weight: 800;
-      padding: 10px 36px;
-      border-radius: 99px;
-      transition: background .2s;
-    }
-    .mob-menu a:hover { background: rgba(255,255,255,.1); }
-    .mob-menu .btn { width: 280px; margin-top: 6px; }
+    .mobile-menu a:last-child { border-bottom: none; }
 
-    /* ══════════════════════════════════════════
-       HERO
-    ══════════════════════════════════════════ */
+    /* ─── HERO ─── */
     .hero {
       position: relative;
-      min-height: 100svh;
+      min-height: 100vh;
       display: flex;
-      align-items: center;
+      align-items: flex-end;
       overflow: hidden;
-      background: var(--blue-dd);
     }
 
-    /* animated gradient sky */
-    .hero-sky {
+    .hero-video-wrap {
       position: absolute;
       inset: 0;
-      background: linear-gradient(160deg,
-        #001f4d 0%, #003580 30%, #0066cc 60%, #0099ff 80%, #00ccff 100%);
-      animation: skyPulse 8s ease-in-out infinite alternate;
+      z-index: 0;
     }
-    @keyframes skyPulse {
-      0%   { filter: hue-rotate(0deg) brightness(1); }
-      100% { filter: hue-rotate(15deg) brightness(1.1); }
+    .hero-video-wrap video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
-
-    /* sun */
-    .hero-sun {
+    .hero-overlay {
       position: absolute;
-      top: 10%; right: 8%;
-      width: 160px; height: 160px;
-      border-radius: 50%;
-      background: radial-gradient(circle, #FFE566 30%, #FFB700 70%, rgba(255,183,0,0) 100%);
-      box-shadow: 0 0 60px 30px rgba(255,200,0,.3), 0 0 120px 60px rgba(255,180,0,.15);
-      animation: sunPulse 4s ease-in-out infinite alternate;
-    }
-    @keyframes sunPulse {
-      0%   { transform: scale(1); box-shadow: 0 0 60px 30px rgba(255,200,0,.3), 0 0 120px 60px rgba(255,180,0,.15); }
-      100% { transform: scale(1.08); box-shadow: 0 0 80px 40px rgba(255,220,0,.4), 0 0 160px 80px rgba(255,200,0,.2); }
-    }
-
-    /* rays around sun */
-    .hero-sun::before {
-      content: '';
-      position: absolute;
-      inset: -30px;
-      border-radius: 50%;
-      background: conic-gradient(
-        rgba(255,220,0,.15) 0deg, transparent 20deg,
-        rgba(255,220,0,.15) 40deg, transparent 60deg,
-        rgba(255,220,0,.15) 80deg, transparent 100deg,
-        rgba(255,220,0,.15) 120deg, transparent 140deg,
-        rgba(255,220,0,.15) 160deg, transparent 180deg,
-        rgba(255,220,0,.15) 200deg, transparent 220deg,
-        rgba(255,220,0,.15) 240deg, transparent 260deg,
-        rgba(255,220,0,.15) 280deg, transparent 300deg,
-        rgba(255,220,0,.15) 320deg, transparent 340deg,
-        rgba(255,220,0,.15) 360deg
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(0,30,80,.3) 0%,
+        rgba(0,20,60,.15) 40%,
+        rgba(0,15,50,.7) 80%,
+        rgba(0,10,40,.92) 100%
       );
-      animation: spinRays 20s linear infinite;
     }
-    @keyframes spinRays { to { transform: rotate(360deg); } }
-
-    /* floating water drops */
-    .drop {
-      position: absolute;
-      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-      animation: dropFloat ease-in-out infinite alternate;
-      opacity: .6;
-    }
-    @keyframes dropFloat {
-      0%   { transform: translateY(0) rotate(-5deg); }
-      100% { transform: translateY(-20px) rotate(5deg); }
-    }
-
-    /* animated waves at bottom */
-    .hero-waves {
-      position: absolute;
-      bottom: -2px; left: 0; right: 0;
-    }
-    .hero-waves svg { display: block; }
-
-    .wave-anim {
-      animation: waveDrift 6s ease-in-out infinite;
-      transform-origin: center bottom;
-    }
-    .wave-anim2 {
-      animation: waveDrift2 8s ease-in-out infinite;
-      transform-origin: center bottom;
-      opacity: .6;
-    }
-    @keyframes waveDrift  { 0%,100% { d: path("M0,40 C240,70 480,10 720,40 C960,70 1200,10 1440,40 L1440,80 L0,80 Z"); } 50% { d: path("M0,40 C240,10 480,70 720,40 C960,10 1200,70 1440,40 L1440,80 L0,80 Z"); } }
-    @keyframes waveDrift2 { 0%,100% { d: path("M0,50 C200,20 500,80 720,50 C940,20 1200,80 1440,50 L1440,80 L0,80 Z"); } 50% { d: path("M0,50 C200,80 500,20 720,50 C940,80 1200,20 1440,50 L1440,80 L0,80 Z"); } }
 
     .hero-content {
       position: relative;
-      z-index: 5;
-      text-align: center;
-      color: var(--white);
-      padding: 130px 0 110px;
+      z-index: 1;
       width: 100%;
+      padding-bottom: 80px;
     }
-
     .hero-badge {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: rgba(255,214,10,.2);
-      border: 2px solid rgba(255,214,10,.5);
-      color: var(--yellow);
-      padding: 9px 24px;
-      border-radius: 99px;
+      background: rgba(255,255,255,.15);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,.3);
+      color: #fff;
       font-weight: 800;
-      font-size: .82rem;
-      letter-spacing: 1px;
+      font-size: .8rem;
+      letter-spacing: .08em;
       text-transform: uppercase;
-      margin-bottom: 28px;
-      animation: badgePop .6s cubic-bezier(.34,1.56,.64,1) .2s both;
+      padding: 7px 16px;
+      border-radius: 50px;
+      margin-bottom: 20px;
     }
-    @keyframes badgePop {
-      0% { transform: scale(0) rotate(-5deg); opacity: 0; }
-      100% { transform: scale(1) rotate(0); opacity: 1; }
+    .hero-badge::before {
+      content: '';
+      width: 8px; height: 8px;
+      background: var(--cyan);
+      border-radius: 50%;
+      animation: blink 1.4s ease-in-out infinite;
     }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
 
     .hero-title {
       font-family: 'Fredoka One', cursive;
-      font-size: clamp(3.2rem, 9vw, 6.5rem);
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      color: #fff;
       line-height: 1.05;
-      margin-bottom: 10px;
-      text-shadow: 0 4px 30px rgba(0,0,0,.4), 0 0 60px rgba(0,212,255,.3);
-      animation: titleSlide .7s cubic-bezier(.34,1.56,.64,1) .3s both;
+      margin-bottom: 20px;
+      text-shadow: 0 4px 30px rgba(0,0,0,.4);
     }
-    @keyframes titleSlide {
-      0% { transform: translateY(40px); opacity: 0; }
-      100% { transform: translateY(0); opacity: 1; }
+    .hero-title span {
+      color: var(--cyan);
     }
-
-    .hero-title .hot   { color: var(--orange); }
-    .hero-title .water { color: var(--cyan); position: relative; }
-    .hero-title .water::after {
-      content: '~';
-      position: absolute;
-      right: -20px; bottom: 0;
-      font-size: .5em;
-      animation: wiggle 1.5s ease-in-out infinite;
-    }
-    @keyframes wiggle { 0%,100% { transform: rotate(-10deg); } 50% { transform: rotate(10deg); } }
-
     .hero-sub {
-      font-size: clamp(1.05rem, 2.5vw, 1.25rem);
+      font-size: clamp(1rem, 2vw, 1.2rem);
       color: rgba(255,255,255,.88);
-      max-width: 600px;
-      margin: 0 auto 44px;
-      line-height: 1.75;
-      animation: fadeUp .6s ease .5s both;
+      max-width: 540px;
+      line-height: 1.65;
+      margin-bottom: 36px;
     }
-    @keyframes fadeUp {
-      0% { transform: translateY(20px); opacity: 0; }
-      100% { transform: translateY(0); opacity: 1; }
-    }
-
-    .hero-ctas {
+    .hero-actions {
       display: flex;
-      gap: 16px;
-      justify-content: center;
       flex-wrap: wrap;
-      margin-bottom: 60px;
-      animation: fadeUp .6s ease .65s both;
+      gap: 12px;
+      align-items: center;
     }
 
     .hero-stats {
       display: flex;
       gap: 40px;
-      justify-content: center;
+      margin-top: 60px;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255,255,255,.15);
       flex-wrap: wrap;
-      padding-top: 44px;
-      border-top: 2px solid rgba(255,255,255,.15);
-      animation: fadeUp .6s ease .8s both;
     }
-    .hero-stat { text-align: center; }
-    .stat-n {
+    .hero-stat-num {
       font-family: 'Fredoka One', cursive;
-      font-size: 2.4rem;
+      font-size: 2.2rem;
       color: var(--cyan);
       line-height: 1;
-      text-shadow: 0 0 20px rgba(0,212,255,.5);
     }
-    .stat-l {
+    .hero-stat-label {
+      font-size: .82rem;
+      color: rgba(255,255,255,.7);
+      font-weight: 600;
+      margin-top: 4px;
+    }
+
+    /* scroll indicator */
+    .scroll-hint {
+      position: absolute;
+      bottom: 28px;
+      right: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      color: rgba(255,255,255,.5);
+      font-size: .72rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    .scroll-hint-line {
+      width: 1px;
+      height: 48px;
+      background: linear-gradient(to bottom, rgba(255,255,255,.5), transparent);
+      animation: scrollDrop 1.8s ease-in-out infinite;
+    }
+    @keyframes scrollDrop { 0%{opacity:0;transform:translateY(-12px)} 50%{opacity:1} 100%{opacity:0;transform:translateY(12px)} }
+
+    /* ─── WAVE DIVIDER ─── */
+    .wave-divider {
+      display: block;
+      width: 100%;
+      overflow: hidden;
+      line-height: 0;
+      margin-top: -2px;
+    }
+    .wave-divider svg { display: block; width: 100%; }
+
+    /* ─── ABOUT SECTION ─── */
+    .about {
+      background: var(--gray);
+      padding: 100px 0;
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      align-items: center;
+    }
+    .about-image-wrap {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0,30,100,.2);
+    }
+    .about-image-wrap img {
+      width: 100%;
+      height: 460px;
+      object-fit: cover;
+    }
+    .about-image-badge {
+      position: absolute;
+      bottom: 24px;
+      left: 24px;
+      background: var(--blue-dd);
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 16px;
+      font-family: 'Fredoka One', cursive;
+      font-size: 1.15rem;
+    }
+    .about-image-badge small {
+      display: block;
+      font-family: 'Nunito', sans-serif;
       font-size: .75rem;
       font-weight: 700;
-      color: rgba(255,255,255,.6);
-      text-transform: uppercase;
-      letter-spacing: 1.2px;
-      margin-top: 5px;
+      color: rgba(255,255,255,.65);
+      margin-top: 2px;
     }
-
-    /* ══════════════════════════════════════════
-       PROOF BAR — gradient rainbow
-    ══════════════════════════════════════════ */
-    .proof-bar {
-      background: linear-gradient(90deg, var(--blue-d), var(--blue), #0099ff, #00bfff);
-      padding: 0;
-      position: relative;
-      z-index: 2;
+    .about-pillars {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 36px;
     }
-    .proof-scroll {
-      display: flex;
-      gap: 0;
-      overflow: hidden;
+    .pillar {
+      background: #fff;
+      border-radius: 16px;
+      padding: 20px;
+      border: 1px solid var(--gray-2);
+      transition: transform .2s, box-shadow .2s;
     }
-    .proof-track {
-      display: flex;
-      gap: 0;
-      animation: scrollTrack 20s linear infinite;
-      white-space: nowrap;
+    .pillar:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(0,50,150,.1); }
+    .pillar-icon {
+      font-size: 2rem;
+      margin-bottom: 10px;
     }
-    @keyframes scrollTrack {
-      0%   { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-    .proof-item {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      color: var(--white);
-      padding: 16px 32px;
-      border-right: 1px solid rgba(255,255,255,.2);
+    .pillar-title {
       font-weight: 800;
-      font-size: .9rem;
+      font-size: .92rem;
+      color: var(--blue-dd);
+      margin-bottom: 4px;
     }
-    .proof-item .pi { font-size: 1.4rem; }
+    .pillar-text {
+      font-size: .82rem;
+      color: var(--text);
+      line-height: 1.5;
+    }
 
-    /* ══════════════════════════════════════════
-       SECTION HELPERS
-    ══════════════════════════════════════════ */
-    section { position: relative; z-index: 1; }
+    /* ─── ATTRACTIONS ─── */
+    .attractions {
+      padding: 100px 0;
+      background: #fff;
+    }
+    .attractions-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+    .attractions-header .section-desc {
+      margin: 0 auto;
+      text-align: center;
+    }
 
-    .section-title {
+    .attractions-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+    .attr-card {
+      background: #fff;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--gray-2);
+      transition: transform .3s, box-shadow .3s;
+    }
+    .attr-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 24px 60px rgba(0,40,130,.14);
+    }
+    .attr-card.featured {
+      grid-column: span 2;
+    }
+    .attr-img-wrap {
+      overflow: hidden;
+      position: relative;
+    }
+    .attr-img-wrap img {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+      transition: transform .5s ease;
+    }
+    .attr-card.featured .attr-img-wrap img {
+      height: 320px;
+    }
+    .attr-card:hover .attr-img-wrap img {
+      transform: scale(1.06);
+    }
+    .attr-tag {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      background: var(--blue-dd);
+      color: #fff;
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 50px;
+    }
+    .attr-body {
+      padding: 24px;
+    }
+    .attr-name {
       font-family: 'Fredoka One', cursive;
-      font-size: clamp(2rem, 5vw, 3rem);
-      line-height: 1.12;
-      margin-bottom: 14px;
+      font-size: 1.35rem;
+      color: var(--blue-dd);
+      margin-bottom: 8px;
     }
-    .section-sub {
-      font-size: 1.1rem;
-      line-height: 1.75;
-      max-width: 560px;
+    .attr-desc {
+      font-size: .9rem;
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .attr-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 14px;
+    }
+    .chip {
+      background: var(--gray);
+      color: var(--blue-d);
+      font-size: .75rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 50px;
     }
 
-    .wave-divider { display: block; width: 100%; overflow: hidden; line-height: 0; }
-    .wave-divider svg { display: block; }
+    /* ─── GALLERY ─── */
+    .gallery {
+      background: var(--blue-dd);
+      padding: 100px 0;
+    }
+    .gallery-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 48px;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .gallery-header .section-title { color: #fff; margin-bottom: 0; }
+    .gallery-header .section-label { color: var(--cyan); }
 
-    /* ══════════════════════════════════════════
-       EXPERIENCE — blue to white
-    ══════════════════════════════════════════ */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-template-rows: auto;
+      gap: 16px;
+    }
+
+    .gallery-item {
+      overflow: hidden;
+      border-radius: 16px;
+      position: relative;
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .5s ease;
+    }
+    .gallery-item:hover img { transform: scale(1.06); }
+
+    .gallery-item:nth-child(1) { grid-column: span 7; min-height: 380px; }
+    .gallery-item:nth-child(2) { grid-column: span 5; min-height: 380px; }
+    .gallery-item:nth-child(3) { grid-column: span 4; min-height: 260px; }
+    .gallery-item:nth-child(4) { grid-column: span 4; min-height: 260px; }
+    .gallery-item:nth-child(5) { grid-column: span 4; min-height: 260px; }
+
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,20,60,.6) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity .3s;
+    }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+
+    /* ─── EXPERIENCE / VIDEO ─── */
     .experience {
-      background: linear-gradient(170deg, #e8f7ff 0%, var(--white) 60%);
-      padding: 80px 0 60px;
+      padding: 100px 0;
+      background: var(--gray);
     }
     .exp-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 64px;
+      gap: 72px;
       align-items: center;
     }
-
-    .exp-visual { position: relative; }
-    .exp-img {
-      width: 100%;
-      aspect-ratio: 4/5;
-      object-fit: cover;
-      border-radius: 32px;
-      box-shadow: 0 20px 60px rgba(0,96,199,.25);
-      transition: transform .4s ease;
+    .exp-video-wrap {
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0,30,100,.2);
+      position: relative;
     }
-    .exp-img:hover { transform: scale(1.02) rotate(.5deg); }
-
-    /* sticker badges */
-    .sticker {
+    .exp-video-wrap video {
+      width: 100%;
+      display: block;
+      border-radius: 24px;
+    }
+    .exp-play-btn {
       position: absolute;
-      border-radius: 50%;
+      inset: 0;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      text-align: center;
-      font-weight: 900;
-      animation: stickerSpin 6s ease-in-out infinite;
+      cursor: pointer;
+      transition: opacity .3s;
     }
-    @keyframes stickerSpin {
-      0%,100% { transform: rotate(-5deg) scale(1); }
-      50%      { transform: rotate(5deg) scale(1.05); }
-    }
-    .sticker-orange {
-      width: 110px; height: 110px;
-      background: linear-gradient(135deg, var(--orange), #ff3d00);
-      color: var(--white);
-      bottom: 28px; right: -18px;
-      box-shadow: 0 8px 30px rgba(255,107,53,.5);
-      font-size: .72rem;
-      line-height: 1.2;
-    }
-    .sticker-orange strong { display: block; font-family: 'Fredoka One',cursive; font-size: 2rem; line-height: 1; }
-
-    .sticker-yellow {
-      width: 90px; height: 90px;
-      background: linear-gradient(135deg, var(--yellow), #ff9900);
-      color: var(--ink);
-      top: 20px; left: -14px;
-      box-shadow: 0 8px 30px rgba(255,214,10,.5);
-      font-size: .68rem;
-      line-height: 1.2;
-      animation-delay: -3s;
-    }
-    .sticker-yellow strong { display: block; font-family: 'Fredoka One',cursive; font-size: 1.6rem; line-height: 1; }
-
-    .exp-tag {
-      display: inline-flex;
+    .exp-play-btn.hidden { opacity: 0; pointer-events: none; }
+    .play-circle {
+      width: 80px; height: 80px;
+      background: rgba(255,255,255,.9);
+      border-radius: 50%;
+      display: flex;
       align-items: center;
-      gap: 8px;
-      background: linear-gradient(135deg, var(--cyan), var(--blue));
-      color: var(--white);
-      padding: 7px 20px;
-      border-radius: 99px;
-      font-weight: 800;
-      font-size: .78rem;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      margin-bottom: 16px;
+      justify-content: center;
+      font-size: 2rem;
+      transition: transform .2s, box-shadow .2s;
+      box-shadow: 0 8px 32px rgba(0,0,0,.3);
     }
-
-    .exp-features {
+    .exp-play-btn:hover .play-circle {
+      transform: scale(1.1);
+      box-shadow: 0 12px 48px rgba(0,0,0,.4);
+    }
+    .exp-list {
+      list-style: none;
+      margin-top: 32px;
       display: flex;
       flex-direction: column;
       gap: 14px;
-      margin: 28px 0 36px;
     }
-    .feat {
+    .exp-list li {
       display: flex;
       align-items: flex-start;
       gap: 14px;
-      padding: 16px 18px;
-      background: linear-gradient(135deg, rgba(0,150,199,.06), rgba(0,212,255,.06));
-      border-radius: 16px;
-      border-left: 4px solid var(--blue);
-      transition: transform .2s;
-    }
-    .feat:hover { transform: translateX(6px); }
-    .feat-icon { font-size: 1.8rem; flex-shrink: 0; }
-    .feat-txt strong {
-      display: block;
-      font-weight: 800;
       font-size: .95rem;
-      color: var(--blue-dd);
-      margin-bottom: 2px;
+      color: var(--text);
+      line-height: 1.55;
     }
-    .feat-txt p { font-size: .875rem; color: #4a6070; line-height: 1.5; }
-
-    /* ══════════════════════════════════════════
-       ATTRACTIONS — dark blue bg
-    ══════════════════════════════════════════ */
-    .attractions-wrap {
-      background: linear-gradient(160deg, var(--blue-dd) 0%, #002060 50%, var(--blue-d) 100%);
-      padding: 80px 0 60px;
-      position: relative;
-      overflow: hidden;
-    }
-    .attractions-wrap::before {
+    .exp-list li::before {
       content: '';
-      position: absolute;
-      inset: 0;
-      background-image:
-        radial-gradient(circle at 20% 30%, rgba(0,212,255,.08) 0%, transparent 50%),
-        radial-gradient(circle at 80% 70%, rgba(255,107,53,.06) 0%, transparent 50%);
+      min-width: 10px;
+      height: 10px;
+      background: var(--blue);
+      border-radius: 50%;
+      margin-top: 6px;
     }
+    .exp-list li strong { color: var(--blue-dd); }
 
-    .attr-head { text-align: center; margin-bottom: 52px; position: relative; z-index: 2; }
-    .attr-head .section-title { color: var(--white); }
-    .attr-head .section-sub { color: rgba(255,255,255,.72); margin: 0 auto; }
+    /* ─── TICKETS ─── */
+    .tickets {
+      padding: 100px 0;
+      background: #fff;
+    }
+    .tickets-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+    .tickets-header .section-desc { margin: 0 auto; text-align: center; }
 
-    .attr-grid {
+    .tickets-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      position: relative;
-      z-index: 2;
+      gap: 28px;
+      max-width: 1000px;
+      margin: 0 auto;
     }
-
-    .attr-card {
+    .ticket-card {
+      background: var(--gray);
       border-radius: 24px;
+      padding: 36px 28px;
+      text-align: center;
+      border: 2px solid var(--gray-2);
+      transition: transform .3s, box-shadow .3s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .ticket-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 24px 60px rgba(0,40,130,.14);
+    }
+    .ticket-card.featured {
+      background: var(--blue-dd);
+      border-color: var(--blue-dd);
+      color: #fff;
+      position: relative;
       overflow: hidden;
-      background: rgba(255,255,255,.07);
-      border: 1px solid rgba(255,255,255,.12);
-      backdrop-filter: blur(10px);
-      transition: transform .3s cubic-bezier(.34,1.56,.64,1), box-shadow .3s;
-      cursor: default;
     }
-    .attr-card:hover {
-      transform: translateY(-10px) scale(1.02);
-      box-shadow: 0 20px 50px rgba(0,0,0,.4);
+    .ticket-card.featured::before {
+      content: 'MAIS POPULAR';
+      position: absolute;
+      top: 18px;
+      right: -30px;
+      background: var(--yellow);
+      color: var(--ink);
+      font-size: .65rem;
+      font-weight: 900;
+      letter-spacing: .08em;
+      padding: 4px 40px;
+      transform: rotate(45deg);
     }
-
-    .attr-thumb {
-      height: 140px;
+    .ticket-icon {
+      font-size: 3rem;
+      margin-bottom: 16px;
+      display: block;
+    }
+    .ticket-name {
+      font-family: 'Fredoka One', cursive;
+      font-size: 1.4rem;
+      margin-bottom: 8px;
+    }
+    .ticket-card.featured .ticket-name { color: #fff; }
+    .ticket-card:not(.featured) .ticket-name { color: var(--blue-dd); }
+    .ticket-desc {
+      font-size: .88rem;
+      line-height: 1.6;
+      opacity: .75;
+      margin-bottom: 24px;
+    }
+    .ticket-features {
+      list-style: none;
+      margin-bottom: 28px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .ticket-features li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: .87rem;
+      font-weight: 600;
+      text-align: left;
+    }
+    .tick {
+      width: 20px; height: 20px;
+      background: var(--green);
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 4.5rem;
-      position: relative;
-      overflow: hidden;
+      font-size: .7rem;
+      color: #fff;
+      flex-shrink: 0;
     }
-    .attr-thumb::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: inherit;
-      filter: brightness(1.2);
-    }
-    .attr-thumb span { position: relative; z-index: 1; filter: drop-shadow(0 4px 8px rgba(0,0,0,.3)); }
-    .attr-thumb.bg1 { background: linear-gradient(135deg, #0077b6, #00b4d8); }
-    .attr-thumb.bg2 { background: linear-gradient(135deg, #e85d04, #f48c06); }
-    .attr-thumb.bg3 { background: linear-gradient(135deg, #06d6a0, #1d8a74); }
-    .attr-thumb.bg4 { background: linear-gradient(135deg, #3a0ca3, #7b2fbe); }
-    .attr-thumb.bg5 { background: linear-gradient(135deg, #c9184a, #ff4d8d); }
-    .attr-thumb.bg6 { background: linear-gradient(135deg, #386641, #6a994e); }
+    .ticket-card.featured .ticket-features li { color: rgba(255,255,255,.85); }
+    .ticket-card:not(.featured) .ticket-features li { color: var(--text); }
+    .ticket-cta { margin-top: auto; width: 100%; }
+    .ticket-cta .btn { width: 100%; justify-content: center; }
 
-    .attr-body { padding: 20px 22px 24px; }
-    .attr-pill {
-      display: inline-block;
-      padding: 4px 12px;
-      border-radius: 99px;
-      font-size: .72rem;
-      font-weight: 800;
-      margin-bottom: 9px;
-    }
-    .attr-pill.blue   { background: rgba(0,212,255,.18); color: var(--cyan); }
-    .attr-pill.orange { background: rgba(255,107,53,.18); color: #ff8c67; }
-    .attr-pill.green  { background: rgba(6,214,160,.18); color: var(--green); }
-    .attr-pill.purple { background: rgba(123,47,190,.18); color: #b87ae8; }
-    .attr-pill.pink   { background: rgba(255,77,141,.18); color: #ff82b3; }
-    .attr-pill.forest { background: rgba(106,153,78,.18); color: #8dc87b; }
-
-    .attr-name { font-family: 'Fredoka One',cursive; font-size: 1.25rem; color: var(--white); margin-bottom: 7px; }
-    .attr-desc { font-size: .875rem; color: rgba(255,255,255,.65); line-height: 1.6; }
-
-    /* ══════════════════════════════════════════
-       VIDEO SECTION — orange/yellow gradient
-    ══════════════════════════════════════════ */
-    .video-section {
-      background: linear-gradient(135deg, #ff6b35 0%, #ff9100 50%, #ffd60a 100%);
-      padding: 80px 0;
-      position: relative;
-      overflow: hidden;
-    }
-    .video-section::before {
-      content: '🌊';
-      position: absolute;
-      font-size: 220px;
-      left: -60px; top: -40px;
-      opacity: .06;
-      transform: rotate(-20deg);
-    }
-    .video-section::after {
-      content: '💦';
-      position: absolute;
-      font-size: 220px;
-      right: -60px; bottom: -40px;
-      opacity: .06;
-      transform: rotate(20deg);
-    }
-
-    .vid-inner { text-align: center; position: relative; z-index: 2; }
-    .vid-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(0,0,0,.15);
-      color: var(--white);
-      padding: 8px 22px;
-      border-radius: 99px;
-      font-weight: 800;
-      font-size: .8rem;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      margin-bottom: 16px;
-    }
-    .vid-inner .section-title { color: var(--ink); }
-    .vid-inner .section-sub { color: rgba(0,30,80,.75); margin: 0 auto 40px; }
-
-    .vid-wrap {
-      max-width: 860px;
-      margin: 0 auto;
-      border-radius: 28px;
-      overflow: hidden;
-      aspect-ratio: 16/9;
-      background: var(--blue-dd);
-      box-shadow: 0 20px 70px rgba(0,0,0,.3);
-      position: relative;
-    }
-    .vid-wrap video { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .vid-cover {
-      position: absolute; inset: 0;
-      display: flex; align-items: center; justify-content: center;
-      background: rgba(0,30,60,.35);
-      cursor: pointer;
-      transition: background .25s;
-    }
-    .vid-cover:hover { background: rgba(0,30,60,.15); }
-    .play-ring {
-      width: 90px; height: 90px;
-      border-radius: 50%;
-      background: var(--white);
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 0 0 0 rgba(255,255,255,.5);
-      animation: pulseRing 2s ease infinite;
-      transition: transform .2s;
-    }
-    .vid-cover:hover .play-ring { transform: scale(1.1); }
-    .play-ring svg { width: 36px; height: 36px; fill: var(--orange); margin-left: 5px; }
-    @keyframes pulseRing {
-      0%   { box-shadow: 0 0 0 0 rgba(255,255,255,.6); }
-      70%  { box-shadow: 0 0 0 26px rgba(255,255,255,0); }
-      100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); }
-    }
-
-    /* ══════════════════════════════════════════
-       PERSONAS — colorful cards
-    ══════════════════════════════════════════ */
-    .personas-section {
-      background: linear-gradient(170deg, #fff8e1 0%, #fff 60%);
+    /* ─── EXCURSIONS ─── */
+    .excursions {
+      background: linear-gradient(135deg, var(--blue-d) 0%, var(--blue-dd) 100%);
       padding: 80px 0;
     }
-    .pers-head { text-align: center; margin-bottom: 52px; }
-    .pers-head .section-sub { margin: 0 auto; color: #5a7080; }
-
-    .pers-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 22px;
-    }
-
-    .pers-card {
-      border-radius: 28px;
-      padding: 40px 28px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-      transition: transform .3s cubic-bezier(.34,1.56,.64,1), box-shadow .3s;
-    }
-    .pers-card:hover { transform: translateY(-8px) rotate(.5deg); }
-
-    .pers-card.blue-card {
-      background: linear-gradient(145deg, #e8f7ff, #c8eeff);
-      border: 2px solid rgba(0,150,199,.2);
-      box-shadow: 0 8px 30px rgba(0,150,199,.15);
-    }
-    .pers-card.blue-card:hover { box-shadow: 0 20px 50px rgba(0,150,199,.3); }
-
-    .pers-card.orange-card {
-      background: linear-gradient(145deg, #fff4ee, #ffe0d0);
-      border: 2px solid rgba(255,107,53,.2);
-      box-shadow: 0 8px 30px rgba(255,107,53,.15);
-    }
-    .pers-card.orange-card:hover { box-shadow: 0 20px 50px rgba(255,107,53,.3); }
-
-    .pers-card.green-card {
-      background: linear-gradient(145deg, #e8fff8, #c8ffec);
-      border: 2px solid rgba(6,214,160,.2);
-      box-shadow: 0 8px 30px rgba(6,214,160,.15);
-    }
-    .pers-card.green-card:hover { box-shadow: 0 20px 50px rgba(6,214,160,.3); }
-
-    .pers-emoji {
-      font-size: 3.5rem;
-      display: block;
-      margin-bottom: 16px;
-      animation: bobble 3s ease-in-out infinite;
-    }
-    .pers-card:nth-child(2) .pers-emoji { animation-delay: -1s; }
-    .pers-card:nth-child(3) .pers-emoji { animation-delay: -2s; }
-    @keyframes bobble {
-      0%,100% { transform: translateY(0); }
-      50%      { transform: translateY(-8px); }
-    }
-
-    .pers-name { font-family: 'Fredoka One',cursive; font-size: 1.45rem; color: var(--blue-dd); margin-bottom: 12px; }
-    .pers-desc { font-size: .9rem; color: #4a6070; line-height: 1.7; margin-bottom: 18px; }
-    .pers-pill {
-      display: inline-block;
-      padding: 6px 18px;
-      border-radius: 99px;
-      font-size: .78rem;
-      font-weight: 800;
-    }
-    .blue-card .pers-pill   { background: var(--blue); color: var(--white); }
-    .orange-card .pers-pill { background: var(--orange); color: var(--white); }
-    .green-card .pers-pill  { background: var(--green); color: var(--ink); }
-
-    /* ══════════════════════════════════════════
-       PASSPORT — deep purple/blue
-    ══════════════════════════════════════════ */
-    .passport-section {
-      background: linear-gradient(140deg, #10002b 0%, #3a0ca3 40%, #023e8a 80%, #0077b6 100%);
-      padding: 80px 0;
-      position: relative;
-      overflow: hidden;
-    }
-    .passport-section::before {
-      content: '⭐';
-      position: absolute;
-      font-size: 300px;
-      right: -80px; top: -80px;
-      opacity: .04;
-      animation: rotateStar 30s linear infinite;
-    }
-    @keyframes rotateStar { to { transform: rotate(360deg); } }
-
-    .pass-grid {
+    .exc-inner {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 60px;
       align-items: center;
-      position: relative;
-      z-index: 2;
     }
-
-    .pass-content .exp-tag { background: linear-gradient(135deg, var(--yellow), #ff9900); color: var(--ink); }
-    .pass-content .section-title { color: var(--white); }
-    .pass-content .section-sub { color: rgba(255,255,255,.72); margin-bottom: 28px; }
-
-    .pass-list {
-      list-style: none;
+    .exc-content .section-title { color: #fff; }
+    .exc-content .section-label { color: var(--cyan); }
+    .exc-content .section-desc { color: rgba(255,255,255,.8); }
+    .exc-items {
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      margin-bottom: 32px;
+      gap: 14px;
+      margin-top: 32px;
     }
-    .pass-list li {
+    .exc-item {
       display: flex;
       align-items: center;
-      gap: 12px;
-      color: var(--white);
-      font-size: 1rem;
-      font-weight: 700;
-    }
-    .pass-list li::before {
-      content: '✓';
-      width: 26px; height: 26px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--green), #00b377);
-      color: var(--white);
-      display: flex; align-items: center; justify-content: center;
-      font-size: .82rem;
-      font-weight: 900;
-      flex-shrink: 0;
-      box-shadow: 0 3px 12px rgba(6,214,160,.4);
-    }
-
-    .pass-card {
+      gap: 16px;
       background: rgba(255,255,255,.08);
-      border: 2px solid rgba(255,255,255,.15);
-      border-radius: 28px;
-      padding: 44px 36px;
-      text-align: center;
-      backdrop-filter: blur(16px);
-      box-shadow: 0 20px 60px rgba(0,0,0,.3);
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 14px;
+      padding: 16px 20px;
     }
-    .pass-card-icon { font-size: 3.5rem; margin-bottom: 14px; animation: spinSlow 10s linear infinite; }
-    @keyframes spinSlow { to { transform: rotate(360deg); } }
-
-    .pass-card-title { font-family: 'Fredoka One',cursive; font-size: 1.6rem; color: var(--white); margin-bottom: 5px; }
-    .pass-card-sub { color: rgba(255,255,255,.5); font-size: .88rem; margin-bottom: 24px; }
-    .pass-card-body {
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.1);
-      border-radius: 16px;
-      padding: 18px 22px;
-      text-align: left;
-      margin-bottom: 22px;
-    }
-    .pass-card-body .lbl { color: rgba(255,255,255,.38); font-size: .7rem; text-transform: uppercase; letter-spacing: .8px; margin-bottom: 3px; }
-    .pass-card-body .val { color: var(--white); font-weight: 800; font-size: 1rem; }
-    .pass-card-body .hint { color: rgba(255,255,255,.32); font-size: .75rem; margin-top: 5px; }
-
-    .pass-card .btn { width: 100%; margin-bottom: 14px; }
-    .pass-portal { color: rgba(255,255,255,.35); font-size: .8rem; text-decoration: underline; transition: color .2s; }
-    .pass-portal:hover { color: rgba(255,255,255,.7); }
-
-    /* ══════════════════════════════════════════
-       TESTIMONIALS — pink/purple gradient
-    ══════════════════════════════════════════ */
-    .testimonials-section {
-      background: linear-gradient(135deg, #fff 0%, #f0f8ff 50%, #e8f0fe 100%);
-      padding: 80px 0;
-    }
-
-    .test-head { text-align: center; margin-bottom: 52px; }
-    .test-head .section-sub { margin: 0 auto; color: #5a7080; }
-
-    .test-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 22px;
-    }
-
-    .test-card {
-      background: var(--white);
-      border-radius: 24px;
-      padding: 32px;
-      box-shadow: 0 4px 24px rgba(0,50,100,.08);
-      transition: transform .3s cubic-bezier(.34,1.56,.64,1), box-shadow .3s;
-      border-top: 5px solid var(--blue);
-      position: relative;
-    }
-    .test-card:nth-child(2) { border-top-color: var(--orange); }
-    .test-card:nth-child(3) { border-top-color: var(--green); }
-    .test-card:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(0,50,100,.15); }
-
-    .test-card::before {
-      content: '"';
-      position: absolute;
-      top: 14px; right: 24px;
-      font-family: 'Fredoka One',cursive;
-      font-size: 5rem;
-      color: rgba(0,150,199,.08);
-      line-height: 1;
-    }
-
-    .test-stars { color: var(--yellow); font-size: 1.1rem; letter-spacing: 2px; margin-bottom: 14px; }
-    .test-text { font-size: .95rem; color: #3a5060; line-height: 1.8; margin-bottom: 22px; font-style: italic; }
-    .test-author { display: flex; align-items: center; gap: 12px; }
-    .t-avatar {
-      width: 46px; height: 46px;
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-family: 'Fredoka One',cursive;
-      font-size: 1.2rem;
-      color: var(--white);
+    .exc-item-icon {
+      font-size: 1.8rem;
       flex-shrink: 0;
     }
-    .t-avatar.a1 { background: linear-gradient(135deg, var(--blue), var(--cyan)); }
-    .t-avatar.a2 { background: linear-gradient(135deg, var(--orange), var(--yellow)); }
-    .t-avatar.a3 { background: linear-gradient(135deg, var(--green), #0096c7); }
-
-    .t-info strong { display: block; font-weight: 800; font-size: .9rem; color: var(--blue-dd); }
-    .t-info span { font-size: .78rem; color: #7a9090; }
-
-    /* ══════════════════════════════════════════
-       EXCURSIONS — vivid teal
-    ══════════════════════════════════════════ */
-    .excursions-section {
-      background: linear-gradient(155deg, #e0fff4 0%, #c8fce8 40%, #d8f5ff 100%);
-      padding: 80px 0;
+    .exc-item-text strong {
+      display: block;
+      color: #fff;
+      font-size: .92rem;
+      font-weight: 800;
+      margin-bottom: 3px;
+    }
+    .exc-item-text span {
+      font-size: .82rem;
+      color: rgba(255,255,255,.6);
+    }
+    .exc-actions {
+      margin-top: 36px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .exc-image {
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 40px 80px rgba(0,0,0,.3);
+    }
+    .exc-image img {
+      width: 100%;
+      height: 420px;
+      object-fit: cover;
     }
 
-    .excur-grid {
+    /* ─── LOCATION ─── */
+    .location {
+      padding: 100px 0;
+      background: var(--gray);
+    }
+    .location-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 60px;
+      gap: 72px;
+      align-items: start;
+    }
+    .location-info {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .loc-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      background: #fff;
+      border-radius: 16px;
+      padding: 22px;
+      border: 1px solid var(--gray-2);
+    }
+    .loc-icon {
+      width: 48px; height: 48px;
+      background: var(--blue);
+      border-radius: 12px;
+      display: flex;
       align-items: center;
-    }
-
-    .excur-content .exp-tag { background: linear-gradient(135deg, var(--green), #009e73); }
-    .excur-content .section-sub { color: #3a5060; margin-bottom: 28px; }
-
-    .steps { display: flex; flex-direction: column; gap: 18px; margin-bottom: 32px; }
-    .step { display: flex; gap: 16px; align-items: flex-start; }
-    .step-n {
-      width: 44px; height: 44px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--blue), var(--cyan));
-      color: var(--white);
-      font-family: 'Fredoka One',cursive;
-      font-size: 1.2rem;
-      display: flex; align-items: center; justify-content: center;
+      justify-content: center;
+      font-size: 1.3rem;
       flex-shrink: 0;
-      box-shadow: 0 4px 16px rgba(0,150,199,.35);
     }
-    .step-txt strong { display: block; font-weight: 800; color: var(--blue-dd); margin-bottom: 2px; }
-    .step-txt p { font-size: .875rem; color: #4a6070; line-height: 1.55; }
-
-    .excur-panel {
-      background: linear-gradient(145deg, var(--blue), var(--blue-d));
-      border-radius: 28px;
-      padding: 52px 40px;
-      text-align: center;
-      color: var(--white);
-      box-shadow: 0 20px 60px rgba(0,96,200,.3);
-      position: relative;
-      overflow: hidden;
+    .loc-card-title {
+      font-weight: 800;
+      color: var(--blue-dd);
+      font-size: .9rem;
+      margin-bottom: 4px;
     }
-    .excur-panel::before {
-      content: '';
-      position: absolute;
-      top: -50%; right: -30%;
-      width: 300px; height: 300px;
-      border-radius: 50%;
-      background: rgba(255,255,255,.06);
+    .loc-card-text {
+      font-size: .88rem;
+      color: var(--text);
+      line-height: 1.6;
     }
-    .excur-panel .icon { font-size: 3.5rem; margin-bottom: 18px; display: block; animation: wobble 2s ease-in-out infinite; }
-    @keyframes wobble {
-      0%,100% { transform: rotate(-5deg) scale(1); }
-      50%      { transform: rotate(5deg) scale(1.08); }
+    .loc-card-text a {
+      color: var(--blue);
+      font-weight: 700;
     }
-    .excur-panel h3 { font-family: 'Fredoka One',cursive; font-size: 1.7rem; margin-bottom: 12px; }
-    .excur-panel p { opacity: .82; font-size: .95rem; line-height: 1.7; margin-bottom: 28px; }
-
-    /* ══════════════════════════════════════════
-       INFO — sunny yellow bg
-    ══════════════════════════════════════════ */
-    .info-section {
-      background: linear-gradient(160deg, #fff9e0 0%, #fff 60%);
-      padding: 80px 0;
-    }
-
-    .info-head { text-align: center; margin-bottom: 52px; }
-    .info-head .section-sub { margin: 0 auto; color: #5a7080; }
-
-    .info-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-    }
-
-    .info-card {
-      background: var(--white);
+    .map-embed {
       border-radius: 24px;
-      padding: 32px 24px;
-      text-align: center;
-      box-shadow: 0 4px 20px rgba(0,40,80,.07);
-      border-bottom: 4px solid var(--blue);
-      transition: transform .25s ease, box-shadow .25s;
-    }
-    .info-card:nth-child(2) { border-bottom-color: var(--orange); }
-    .info-card:nth-child(3) { border-bottom-color: var(--green); }
-    .info-card:nth-child(4) { border-bottom-color: var(--yellow); }
-    .info-card:nth-child(5) { border-bottom-color: var(--pink); }
-    .info-card:nth-child(6) { border-bottom-color: var(--purple); }
-    .info-card:hover { transform: translateY(-5px); box-shadow: 0 12px 36px rgba(0,40,80,.12); }
-
-    .info-icon { font-size: 2.4rem; margin-bottom: 12px; }
-    .info-lbl { font-family: 'Fredoka One',cursive; font-size: 1.1rem; color: var(--blue-dd); margin-bottom: 10px; }
-    .info-txt { font-size: .875rem; color: #4a6070; line-height: 1.7; }
-    .info-txt strong { color: var(--ink); font-weight: 800; }
-    .info-txt a { color: var(--blue); font-weight: 700; text-decoration: underline; }
-
-    /* ══════════════════════════════════════════
-       FINAL CTA — fire gradient
-    ══════════════════════════════════════════ */
-    .final-cta {
-      background: linear-gradient(135deg, #ff6b35 0%, #e84e0f 30%, #c1121f 60%, #780000 100%);
-      padding: 88px 0;
-      text-align: center;
-      position: relative;
       overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,30,100,.15);
+      height: 420px;
+    }
+    .map-embed iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
     }
 
-    /* water splash decoration */
-    .splash {
-      position: absolute;
-      font-size: 180px;
-      opacity: .06;
-      animation: floatSplash ease-in-out infinite alternate;
+    /* ─── CTA FINAL ─── */
+    .cta-final {
+      background: linear-gradient(135deg, var(--orange) 0%, #E84E0F 100%);
+      padding: 80px 0;
+      text-align: center;
     }
-    .splash.s1 { top: -40px; left: -40px; animation-duration: 5s; }
-    .splash.s2 { bottom: -40px; right: -40px; animation-duration: 7s; animation-delay: -2s; }
-    @keyframes floatSplash {
-      0%   { transform: scale(1) rotate(-10deg); }
-      100% { transform: scale(1.1) rotate(10deg); }
-    }
-
-    .final-inner { position: relative; z-index: 2; }
-    .final-inner h2 {
+    .cta-final h2 {
       font-family: 'Fredoka One', cursive;
-      font-size: clamp(2.2rem, 6vw, 3.8rem);
-      color: var(--white);
-      line-height: 1.1;
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: #fff;
       margin-bottom: 16px;
-      text-shadow: 0 4px 20px rgba(0,0,0,.3);
     }
-    .final-inner p {
-      color: rgba(255,255,255,.88);
-      font-size: 1.15rem;
-      max-width: 480px;
-      margin: 0 auto 44px;
-      line-height: 1.7;
-      font-weight: 600;
+    .cta-final p {
+      color: rgba(255,255,255,.85);
+      font-size: 1.1rem;
+      margin-bottom: 36px;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
     }
-    .final-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .cta-final-actions {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
 
-    /* ══════════════════════════════════════════
-       FOOTER
-    ══════════════════════════════════════════ */
+    /* ─── FOOTER ─── */
     .footer {
-      background: linear-gradient(160deg, #001528 0%, var(--blue-dd) 100%);
-      padding: 64px 0 28px;
+      background: var(--blue-dd);
+      padding: 60px 0 32px;
+      color: rgba(255,255,255,.7);
     }
     .footer-grid {
       display: grid;
       grid-template-columns: 2fr 1fr 1fr 1fr;
-      gap: 44px;
-      margin-bottom: 48px;
+      gap: 48px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid rgba(255,255,255,.1);
     }
-    .footer-brand .f-logo {
-      font-family: 'Fredoka One',cursive;
-      font-size: 1.6rem;
-      color: var(--white);
-      margin-bottom: 14px;
-    }
-    .footer-brand .f-logo span { color: var(--cyan); }
-    .footer-brand p { color: rgba(255,255,255,.45); font-size: .88rem; line-height: 1.75; max-width: 260px; }
-
-    .footer-col h4 {
-      font-family: 'Fredoka One',cursive;
-      font-size: 1rem;
-      color: var(--cyan);
+    .footer-brand img {
+      height: 50px;
       margin-bottom: 16px;
+      filter: brightness(0) invert(1);
     }
-    .footer-links { display: flex; flex-direction: column; gap: 9px; }
-    .footer-links a { color: rgba(255,255,255,.45); font-size: .875rem; font-weight: 600; transition: color .2s, transform .2s; display: inline-block; }
-    .footer-links a:hover { color: var(--white); transform: translateX(4px); }
-
-    .f-contact-row {
+    .footer-brand p {
+      font-size: .87rem;
+      line-height: 1.7;
+      max-width: 260px;
+    }
+    .footer-social {
       display: flex;
       gap: 10px;
-      align-items: flex-start;
-      color: rgba(255,255,255,.45);
-      font-size: .875rem;
-      font-weight: 600;
-      margin-bottom: 10px;
+      margin-top: 20px;
     }
-    .f-contact-row .ico { flex-shrink: 0; }
-    .f-contact-row a { color: rgba(255,255,255,.45); transition: color .2s; }
-    .f-contact-row a:hover { color: var(--white); }
-
-    .footer-bottom {
-      border-top: 1px solid rgba(255,255,255,.08);
-      padding-top: 22px;
+    .social-btn {
+      width: 38px; height: 38px;
+      background: rgba(255,255,255,.1);
+      border-radius: 8px;
       display: flex;
       align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      transition: background .2s, transform .2s;
+      color: #fff;
+    }
+    .social-btn:hover { background: var(--blue); transform: translateY(-2px); }
+    .footer-col h4 {
+      font-family: 'Fredoka One', cursive;
+      font-size: 1rem;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .footer-col ul li a {
+      font-size: .87rem;
+      color: rgba(255,255,255,.6);
+      transition: color .2s;
+    }
+    .footer-col ul li a:hover { color: var(--cyan); }
+    .footer-bottom {
+      display: flex;
       justify-content: space-between;
+      align-items: center;
+      padding-top: 28px;
       flex-wrap: wrap;
       gap: 12px;
     }
-    .footer-bottom p { color: rgba(255,255,255,.25); font-size: .8rem; }
-    .social-row { display: flex; gap: 10px; }
-    .soc-link {
-      width: 38px; height: 38px;
-      border-radius: 50%;
-      background: rgba(255,255,255,.07);
-      display: flex; align-items: center; justify-content: center;
-      color: rgba(255,255,255,.45);
-      font-size: 1rem;
-      transition: all .22s;
-    }
-    .soc-link:hover { background: var(--blue); color: var(--white); transform: translateY(-3px) scale(1.1); }
+    .footer-bottom p { font-size: .82rem; }
 
-    /* ══════════════════════════════════════════
-       FLOATING WHATSAPP
-    ══════════════════════════════════════════ */
-    .wa-float {
+    /* ─── WHATSAPP FLOAT ─── */
+    .whatsapp-float {
       position: fixed;
-      bottom: 26px; right: 26px;
-      z-index: 998;
+      bottom: 28px;
+      right: 28px;
+      width: 58px; height: 58px;
+      background: #25D366;
+      border-radius: 50%;
       display: flex;
       align-items: center;
-      gap: 10px;
-      background: linear-gradient(135deg, #25D366, #128C7E);
-      color: var(--white);
-      padding: 14px 22px;
-      border-radius: 99px;
-      box-shadow: 0 6px 28px rgba(37,211,102,.45);
-      font-weight: 800;
-      font-size: .88rem;
-      transition: all .28s;
-      animation: slideUp .5s ease .8s both;
+      justify-content: center;
+      z-index: 900;
+      box-shadow: 0 6px 24px rgba(37,211,102,.45);
+      transition: transform .2s, box-shadow .2s;
+      font-size: 1.6rem;
     }
-    .wa-float:hover { transform: translateY(-4px) scale(1.04); box-shadow: 0 10px 40px rgba(37,211,102,.6); }
-    .wa-float svg { width: 22px; height: 22px; fill: var(--white); flex-shrink: 0; }
-    @keyframes slideUp { from { opacity:0; transform: translateY(30px); } to { opacity:1; transform:translateY(0); } }
+    .whatsapp-float:hover {
+      transform: scale(1.12);
+      box-shadow: 0 10px 36px rgba(37,211,102,.55);
+    }
 
-    /* ══════════════════════════════════════════
-       SCROLL ANIMATIONS
-    ══════════════════════════════════════════ */
+    /* ─── REVEAL ANIMATION ─── */
     .reveal {
       opacity: 0;
-      transition: opacity .7s ease, transform .7s cubic-bezier(.34,1.56,.64,1);
+      transform: translateY(30px);
+      transition: opacity .7s ease, transform .7s ease;
     }
-    .reveal.up    { transform: translateY(40px); }
-    .reveal.left  { transform: translateX(-40px); }
-    .reveal.right { transform: translateX(40px); }
-    .reveal.pop   { transform: scale(.85); }
-    .reveal.show  { opacity: 1; transform: none; }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-    .d1 { transition-delay: .1s; }
-    .d2 { transition-delay: .2s; }
-    .d3 { transition-delay: .3s; }
-    .d4 { transition-delay: .4s; }
-    .d5 { transition-delay: .5s; }
-
-    /* ══════════════════════════════════════════
-       RESPONSIVE
-    ══════════════════════════════════════════ */
+    /* ─── RESPONSIVE ─── */
     @media (max-width: 1024px) {
-      .exp-grid, .pass-grid, .excur-grid { gap: 40px; }
-      .footer-grid { grid-template-columns: 1fr 1fr; gap: 30px; }
+      .about-grid, .exp-grid, .location-grid { grid-template-columns: 1fr; gap: 40px; }
+      .about-image-wrap img { height: 360px; }
+      .exc-inner { grid-template-columns: 1fr; gap: 40px; }
+      .exc-image { display: none; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 36px; }
     }
 
     @media (max-width: 768px) {
-      section { padding: 60px 0 !important; }
+      .nav-links, .nav-ticket { display: none; }
+      .nav-hamburger { display: flex; }
 
-      .nav-links, .nav-ctas { display: none; }
-      .hamburger { display: flex; }
+      .hero-title { font-size: clamp(2.2rem, 9vw, 3.5rem); }
+      .hero-stats { gap: 24px; }
 
-      .hero-title { font-size: clamp(2.6rem, 10vw, 4rem); }
-      .hero-title .water::after { display: none; }
-      .hero-stats { gap: 20px; }
+      .attractions-grid { grid-template-columns: 1fr; }
+      .attr-card.featured { grid-column: span 1; }
+      .attr-card.featured .attr-img-wrap img { height: 240px; }
 
-      .exp-grid, .pass-grid, .excur-grid { grid-template-columns: 1fr; }
-      .sticker-orange { right: 10px; bottom: 10px; }
-      .sticker-yellow { display: none; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; }
+      .gallery-item:nth-child(1) { grid-column: span 2; min-height: 240px; }
+      .gallery-item:nth-child(2) { grid-column: span 2; min-height: 200px; }
+      .gallery-item:nth-child(3),
+      .gallery-item:nth-child(4),
+      .gallery-item:nth-child(5) { grid-column: span 1; min-height: 180px; }
 
-      .attr-grid  { grid-template-columns: 1fr 1fr; }
-      .pers-grid  { grid-template-columns: 1fr; }
-      .test-grid  { grid-template-columns: 1fr; }
-      .info-grid  { grid-template-columns: 1fr 1fr; }
+      .tickets-grid { grid-template-columns: 1fr; max-width: 400px; }
 
-      .footer-grid { grid-template-columns: 1fr; }
+      .about-pillars { grid-template-columns: 1fr 1fr; }
+
+      .footer-grid { grid-template-columns: 1fr; gap: 28px; }
       .footer-bottom { flex-direction: column; text-align: center; }
 
-      .wa-float span { display: none; }
-      .wa-float { padding: 15px; border-radius: 50%; }
+      .map-embed { height: 300px; }
 
-      .hero-sun { width: 100px; height: 100px; top: 8%; right: 5%; }
-    }
-
-    @media (max-width: 480px) {
-      .attr-grid { grid-template-columns: 1fr; }
-      .info-grid  { grid-template-columns: 1fr; }
-      .hero-ctas  { flex-direction: column; align-items: center; }
-      .hero-ctas .btn { width: 100%; max-width: 320px; }
-      .final-btns { flex-direction: column; align-items: center; }
-      .final-btns .btn { width: 100%; max-width: 320px; }
+      .scroll-hint { display: none; }
     }
   </style>
 </head>
 <body>
 
-  <!-- BUBBLES -->
-  <div id="bubbles"></div>
-
-  <!-- ══════════════════════════════════
+  <!-- ═══════════════════════════════════════════
        NAVBAR
-  ══════════════════════════════════ -->
-  <header class="navbar" id="navbar">
+  ═══════════════════════════════════════════ -->
+  <nav class="navbar" id="navbar">
     <div class="container">
       <div class="nav-inner">
-        <a href="#hero" class="nav-logo">ACQUA<span>VILLE</span> 🌊</a>
+        <a href="#" class="nav-logo">
+          <img src="https://acquavilleparkshow.com.br/wp-content/uploads/2024/09/logo-menu.webp"
+               alt="Acquaville Park Show"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+          <span style="display:none; font-family:'Fredoka One',cursive; font-size:1.4rem; color:#fff;">Acquaville</span>
+        </a>
 
-        <nav class="nav-links">
-          <a href="#experience">O Parque</a>
-          <a href="#attractions">Atrações</a>
-          <a href="#passport">Passaporte</a>
-          <a href="#excursions">Excursões</a>
-          <a href="#info">Informações</a>
-        </nav>
+        <ul class="nav-links">
+          <li><a href="#sobre">O Parque</a></li>
+          <li><a href="#atracoes">Atrações</a></li>
+          <li><a href="#galeria">Galeria</a></li>
+          <li><a href="#ingressos">Ingressos</a></li>
+          <li><a href="#excursoes">Excursões</a></li>
+          <li><a href="#localizacao">Localização</a></li>
+        </ul>
 
-        <div class="nav-ctas">
+        <div class="nav-cta">
           <a href="https://loja.multiclubes.com.br/acquaville/ingressos/ingresso"
-             target="_blank" rel="noopener"
-             class="btn btn-orange btn-sm">🎫 Comprar Ingresso</a>
-          <a href="https://api.whatsapp.com/send/?phone=557499911913&text=Olá!%20Quero%20saber%20mais%20sobre%20o%20Acquaville!"
-             target="_blank" rel="noopener"
-             class="btn btn-ghost btn-sm">💬 WhatsApp</a>
+             target="_blank" class="nav-ticket">🎫 Comprar Ingresso</a>
+          <div class="nav-hamburger" id="hamburger" onclick="toggleMenu()">
+            <span></span><span></span><span></span>
+          </div>
         </div>
-
-        <button class="hamburger" id="hamburger" aria-label="Menu">
-          <span></span><span></span><span></span>
-        </button>
       </div>
     </div>
-  </header>
+  </nav>
 
-  <!-- Mobile menu -->
-  <div class="mob-menu" id="mobMenu">
-    <button class="mob-close" id="mobClose">✕</button>
-    <a href="#experience"  onclick="closeMob()">O Parque</a>
-    <a href="#attractions" onclick="closeMob()">Atrações</a>
-    <a href="#passport"    onclick="closeMob()">Passaporte</a>
-    <a href="#excursions"  onclick="closeMob()">Excursões</a>
-    <a href="#info"        onclick="closeMob()">Informações</a>
-    <a href="https://loja.multiclubes.com.br/acquaville/ingressos/ingresso"
-       target="_blank" class="btn btn-orange">🎫 Comprar Ingresso</a>
-    <a href="https://loja.multiclubes.com.br/acquaville/titulos/acquavilleparkshow"
-       target="_blank" class="btn btn-cyan">🌊 Passaporte Anual</a>
+  <!-- mobile menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#sobre" onclick="toggleMenu()">O Parque</a>
+    <a href="#atracoes" onclick="toggleMenu()">Atrações</a>
+    <a href="#galeria" onclick="toggleMenu()">Galeria</a>
+    <a href="#ingressos" onclick="toggleMenu()">Ingressos</a>
+    <a href="#excursoes" onclick="toggleMenu()">Excursões</a>
+    <a href="#localizacao" onclick="toggleMenu()">Localização</a>
+    <a href="https://loja.multiclubes.com.br/acquaville/ingressos/ingresso" target="_blank"
+       style="color:var(--yellow)">🎫 Comprar Ingresso</a>
   </div>
 
-
-  <!-- ══════════════════════════════════
+  <!-- ═══════════════════════════════════════════
        HERO
-  ══════════════════════════════════ -->
-  <section class="hero" id="hero">
-    <div class="hero-sky"></div>
-    <div class="hero-sun"></div>
+  ═══════════════════════════════════════════ -->
+  <section class="hero">
+    <div class="hero-video-wrap">
+      <video autoplay muted loop playsinline preload="auto"
+             poster="https://acquavilleparkshow.com.br/wp-content/uploads/2024/09/imagem-sessao-3-e1727117584818.webp">
+        <source src="https://acquavilleparkshow.com.br/wp-content/uploads/2024/09/acqua-vile.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="hero-overlay"></div>
 
-    <!-- floating drops -->
-    <div class="drop" style="width:60px;height:60px;background:rgba(0,212,255,.25);top:20%;left:8%;animation-duration:4s;animation-delay:0s"></div>
-    <div class="drop" style="width:40px;height:40px;background:rgba(255,214,10,.2);top:40%;left:15%;animation-duration:3s;animation-delay:-1s"></div>
-    <div class="drop" style="width:80px;height:80px;background:rgba(0,212,255,.15);top:15%;right:22%;animation-duration:5s;animation-delay:-2s"></div>
-    <div class="drop" style="width:50px;height:50px;background:rgba(255,107,53,.2);top:60%;right:12%;animation-duration:3.5s;animation-delay:-1.5s"></div>
-    <div class="drop" style="width:30px;height:30px;background:rgba(6,214,160,.25);top:70%;left:25%;animation-duration:4.5s;animation-delay:-3s"></div>
-
-    <div class="container">
-      <div class="hero-content">
-
-        <div class="hero-badge">
-          🏆 Único parque aquático de Irecê · Chapada Diamantina
-        </div>
+    <div class="hero-content">
+      <div class="container">
+        <div class="hero-badge">🌊 O único parque aquático de Irecê, BA</div>
 
         <h1 class="hero-title">
-          Aqui, o <span class="hot">calor</span><br>
-          vira <span class="water">aventura</span>.
+          Diversão de verdade<br>
+          <span>pra toda a família</span>
         </h1>
 
         <p class="hero-sub">
-          Piscinas, toboáguas, área infantil, wet bar e muito mais —
-          diversão de verdade para toda a família bem aqui em Irecê, BA!
+          Piscinas, toboáguas, área infantil, restaurante e muito mais.
+          Uma experiência completa de lazer no coração do interior baiano.
         </p>
 
-        <div class="hero-ctas">
+        <div class="hero-actions">
           <a href="https://loja.multiclubes.com.br/acquaville/ingressos/ingresso"
-             target="_blank" rel="noopener"
-             class="btn btn-orange btn-lg">🎫 Garantir Ingresso com Desconto</a>
-          <a href="https://api.whatsapp.com/send/?phone=557499911913&text=Olá!%20Quero%20saber%20mais%20sobre%20o%20Acquaville!"
-             target="_blank" rel="noopener"
-             class="btn btn-ghost btn-lg">💬 Falar com a Gente</a>
+             target="_blank" class="btn btn-primary">
+            🎫 Comprar Ingresso
+          </a>
+          <a href="#sobre" class="btn btn-outline">Conhecer o Parque</a>
         </div>
 
         <div class="hero-stats">
-          <div class="hero-stat"><div class="stat-n">+5.000</div><div class="stat-l">Famílias felizes</div></div>
-          <div class="hero-stat"><div class="stat-n">9h–18h</div><div class="stat-l">Todo fim de semana</div></div>
-          <div class="hero-stat"><div class="stat-n">7+</div><div class="stat-l">Atrações exclusivas</div></div>
-          <div class="hero-stat"><div class="stat-n">⭐ 4.8</div><div class="stat-l">Avaliação Google</div></div>
+          <div>
+            <div class="hero-stat-num">2019</div>
+            <div class="hero-stat-label">Fundado em</div>
+          </div>
+          <div>
+            <div class="hero-stat-num">+10</div>
+            <div class="hero-stat-label">Atrações</div>
+          </div>
+          <div>
+            <div class="hero-stat-num">Nº1</div>
+            <div class="hero-stat-label">em Irecê, BA</div>
+          </div>
+          <div>
+            <div class="hero-stat-num">todas</div>
+            <div class="hero-stat-label">as idades</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scroll-hint">
+      <div class="scroll-hint-line"></div>
+      Role
+    </div>
+  </section>
+
+  <!-- wave -->
+  <div class="wave-divider" style="background:var(--gray)">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none" height="60">
+      <path d="M0,30 C360,60 1080,0 1440,30 L1440,0 L0,0 Z" fill="#1a2e4a" opacity=".08"/>
+    </svg>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SOBRE O PARQUE
+  ═══════════════════════════════════════════ -->
+  <section class="about" id="sobre">
+    <div class="container">
+      <div class="about-grid">
+
+        <div class="about-image-wrap reveal">
+          <img src="https://acquavilleparkshow.com.br/wp-content/uploads/2024/09/imagem-sessao-2-1.png"
+               alt="Vista do Acquaville Park Show">
+          <div class="about-image-badge">
+            Desde 2019
+            <small>Irecê, Bahia</small>
+          </div>
+        </div>
+
+        <div class="reveal" style="transition-delay:.15s">
+          <span class="section-label">Sobre o Parque</span>
+          <h2 class="section-title">O parque que o<br><span>interior baiano</span><br>merecia</h2>
+          <p class="section-desc">
+            O Acquaville Park Show nasceu para levar diversão, emoção e adrenalina para Irecê e toda a região.
+            Com infraestrutura completa, ambiente seguro e atendimento de qualidade, somos o destino de lazer
+            número 1 da cidade.
+          </p>
+
+          <div class="about-pillars">
+            <div class="pillar">
+              <div class="pillar-icon">🛡️</div>
+              <div class="pillar-title">Segurança Total</div>
+              <div class="pillar-text">Equipe treinada e equipamentos de qualidade para sua tranquilidade.</div>
+            </div>
+            <div class="pillar">
+              <div class="pillar-icon">👨‍👩‍👧‍👦</div>
+              <div class="pillar-title">Para Todas as Idades</div>
+              <div class="pillar-text">Crianças, adultos e idosos — todo mundo se diverte aqui.</div>
+            </div>
+            <div class="pillar">
+              <div class="pillar-icon">🍽️</div>
+              <div class="pillar-title">Gastronomia</div>
+              <div class="pillar-text">Restaurante, snack bar e wet bar para você não passar o dia com fome.</div>
+            </div>
+            <div class="pillar">
+              <div class="pillar-icon">📍</div>
+              <div class="pillar-title">Localização Estratégica</div>
+              <div class="pillar-text">BA-052, Km 354 — fácil acesso para toda a região de Irecê.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       ATRAÇÕES
+  ═══════════════════════════════════════════ -->
+  <section class="attractions" id="atracoes">
+    <div class="container">
+      <div class="attractions-header reveal">
+        <span class="section-label">O que tem no parque</span>
+        <h2 class="section-title">Atrações para<br><span>todo mundo</span></h2>
+        <p class="section-desc">
+          De toboáguas radicais para quem quer adrenalina, até piscinas tranquilas e área infantil completa para a criançada. O Acquaville tem tudo.
+        </p>
+      </div>
+
+      <div class="attractions-grid">
+
+        <!-- featured card -->
+        <div class="attr-card featured reveal">
+          <div class="attr-img-wrap">
+            <img src="https://acquavilleparkshow.com.br/wp-content/uploads/2024/09/1.webp"
+                 alt="Toboáguas Acquaville">
+            <span class="attr-tag">🔥 Destaque</span>
+          </div>
+          <div class="attr-body">
+            <div class="attr-name">Toboáguas & Escorregadores</div>
+            <p class="attr-desc">
+              Adrenalina pura! Os toboáguas do Acquaville são a atração mais procurada — rápidos, divertidos e seguros.
+              Perfeito para quem quer uma dose de emoção no calor do interior baiano.
+            </p>
+            <div class="attr-chips">
+              <span class="chip">Adrenalina</span>
+              <span class="chip">Adultos e adolescentes</span>
+              <span class="chip">Velocidade</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="attr-card reveal" style="transition-delay:.1s">
+          <div class="attr-img-wrap">
+            <img src="https://acquavilleparkshow.com.br/wp-content/uploads/2024/09/3.webp"
+                 alt="Piscinas Acquaville">
+            <span class="attr-tag">💧 Relaxamento</span>
+          </div>
+          <div class="attr-body">
+            <div class="attr-name">Piscinas</div>
+            <p class="attr-desc">
+              Piscinas amplas e bem cuidadas para relaxar e curtir o sol. Ideal para toda a família.
+            </p>
+            <div class="attr-chips">
+              <span class="chip">Todos os públicos</span>
+              <span class="chip">Relaxamento</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="attr-card reveal" style="transition-delay:.15s">
+          <div class="attr-img-wrap">
+            <img src="https://acquavilleparkshow.com.br/wp-content/uploads/2024/09/2.webp"
+                 alt="Área Infantil Acquaville">
+            <span class="attr-tag">🧒 Crianças</span>
+          </div>
+          <div class="attr-body">
+            <div class="attr-name">Área Infantil</div>
+            <p class="attr-desc">
+              Espaço especialmente pensado para as crianças, com brinquedos aquáticos e segurança total.
+            </p>
+            <div class="attr-chips">
+              <span class="chip">0 a 10 anos</span>
+              <span class="chip">Segurança</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="attr-card reveal" style="transition-delay:.2s">
+          <div class="attr-img-wrap">
+            <img src="https://acquavilleparkshow.com.br/wp-content/uploads/2024/09/4.webp"
+                 alt="Kiosques e Churrasqueiras Acquaville">
+            <span class="attr-tag">🍖 Gastronomia</span>
+          </div>
+          <div class="attr-body">
+            <div class="attr-name">Kiosques & Churrasqueiras</div>
+            <p class="attr-desc">
+              Alugue um kiosque com churrasqueira e transforme o dia em uma festa em família. Espaço para grupos e eventos.
+            </p>
+            <div class="attr-chips">
+              <span class="chip">Grupos</span>
+              <span class="chip">Eventos</span>
+              <span class="chip">Família</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="attr-card reveal" style="transition-delay:.25s">
+          <div class="attr-img-wrap">
+            <img src="https://acquavilleparkshow.com.br/wp-content/uploads/2024/09/5.webp"
+                 alt="Restaurante e Wet Bar Acquaville">
+            <span class="attr-tag">🍹 Bar & Resto</span>
+          </div>
+          <div class="attr-body">
+            <div class="attr-name">Restaurante & Wet Bar</div>
+            <p class="attr-desc">
+              Comida boa, drinks refrescantes e snacks para não passar o dia inteiro com fome. Tudo na beira da piscina.
+            </p>
+            <div class="attr-chips">
+              <span class="chip">Restaurante</span>
+              <span class="chip">Wet bar</span>
+              <span class="chip">Drinks</span>
+            </div>
+          </div>
         </div>
 
       </div>
     </div>
+  </section>
 
-    <div class="hero-waves">
-      <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="height:80px">
-        <path class="wave-anim2" d="M0,50 C200,20 500,80 720,50 C940,20 1200,80 1440,50 L1440,80 L0,80 Z" fill="rgba(0,150,199,.4)"/>
-        <path class="wave-anim"  d="M0,40 C240,70 480,10 720,40 C960,70 1200,10 1440,40 L1440,80 L0,80 Z" fill="#e8f7ff"/>
-      </svg>
+  <!-- wave -->
+  <div class="wave-divider" style="background:var(--blue-dd)">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none" height="60">
+      <path d="M0,0 C480,60 960,0 1440,60 L1440,60 L0,60 Z" fill="#ffffff"/>
+    </svg>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       GALERIA
+  ═══════════════════════════════════════════ -->
+  <section class="gallery" id="galeria">
+    <div class="container">
+      <div class="gallery-header reveal">
+        <div>
+          <span class="section-label">Galeria de Fotos</span>
+          <h2 class="section-title" style="color:#fff; margin-bottom:0">Veja como é<br>por dentro</h2>
+        </div>
+        <a href="https://www.instagram.com/acquavilleirece/" target="_blank" class="btn btn-outline">
+          📸 Ver no Instagram
+        </a>
+      </div>
+
+      <div class="gallery-grid reveal">
+        <div class="gallery-item">
+          <img src="https://acquavilleparkshow.com.br/wp-content/uploads/2024/09/imagem-sessao-3-e1727117584818.webp"
+               alt="Acquaville Park Show">
+          <div class="gallery-overlay"></div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://acquavilleparkshow.com.br/wp-content/uploads/2024/09/imagem-sessao-2-1.png"
+               alt="Acquaville Park Show">
+          <div class="gallery-overlay"></div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://acquavilleparkshow.com.br/wp-content/uploads/2024/09/1.webp"
+               alt="Toboáguas">
+          <div class="gallery-overlay"></div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://acquavilleparkshow.com.br/wp-content/uploads/2024/09/2.webp"
+               alt="Área Infantil">
+          <div class="gallery-overlay"></div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://acquavilleparkshow.com.br/wp-content/uploads/2024/09/3.webp"
+               alt="Piscinas">
+          <div class="gallery-overlay"></div>
+        </div>
+      </div>
     </div>
   </section>
 
-
-  <!-- ══════════════════════════════════
-       PROOF BAR
-  ══════════════════════════════════ -->
-  <div class="proof-bar">
-    <div class="proof-scroll">
-      <div class="proof-track" id="proofTrack">
-        <div class="proof-item"><span class="pi">🏆</span> Maior parque aquático do interior baiano</div>
-        <div class="proof-item"><span class="pi">⭐</span> 4.8 estrelas no Google</div>
-        <div class="proof-item"><span class="pi">👨‍👩‍👧</span> Para todas as idades</div>
-        <div class="proof-item"><span class="pi">📍</span> BA-052, Km 354 · Irecê, BA</div>
-        <div class="proof-item"><span class="pi">🎫</span> Ingresso com desconto antecipado</div>
-        <div class="proof-item"><span class="pi">🌊</span> Passaporte anual disponível</div>
-        <div class="proof-item"><span class="pi">🕐</span> Sábados, domingos e feriados 9h–18h</div>
-        <!-- duplicated for seamless loop -->
-        <div class="proof-item"><span class="pi">🏆</span> Maior parque aquático do interior baiano</div>
-        <div class="proof-item"><span class="pi">⭐</span> 4.8 estrelas no Google</div>
-        <div class="proof-item"><span class="pi">👨‍👩‍👧</span> Para todas as idades</div>
-        <div class="proof-item"><span class="pi">📍</span> BA-052, Km 354 · Irecê, BA</div>
-        <div class="proof-item"><span class="pi">🎫</span> Ingresso com desconto antecipado</div>
-        <div class="proof-item"><span class="pi">🌊</span> Passaporte anual disponível</div>
-        <div class="proof-item"><span class="pi">🕐</span> Sábados, domingos e feriados 9h–18h</div>
-      </div>
-    </div>
+  <!-- wave -->
+  <div class="wave-divider" style="background:var(--gray)">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none" height="60">
+      <path d="M0,60 C480,0 960,60 1440,0 L1440,60 L0,60 Z" fill="var(--blue-dd)"/>
+    </svg>
   </div>
 
-
-  <!-- ══════════════════════════════════
-       EXPERIENCE
-  ══════════════════════════════════ -->
-  <section class="experience" id="experience">
+  <!-- ═══════════════════════════════════════════
+       EXPERIENCE / VIDEO
+  ═══════════════════════════════════════════ -->
+  <section class="experience" id="video">
     <div class="container">
       <div class="exp-grid">
 
-        <div class="exp-visual reveal left">
-          <img
-            src="https://acquavilleparkshow.com.br/wp-content/uploads/2024/09/imagem-sessao-3-e1727117584818.webp"
-            alt="Diversão em família no Acquaville Park Show"
-            class="exp-img"
-            loading="lazy"
-          >
-          <div class="sticker sticker-orange">
-            <strong>2019</strong>
-            Desde
-          </div>
-          <div class="sticker sticker-yellow">
-            <strong>Nº1</strong>
-            Irecê, BA
+        <div class="exp-video-wrap reveal">
+          <video id="mainVideo" muted loop playsinline preload="metadata"
+                 poster="https://acquavilleparkshow.com.br/wp-content/uploads/2024/09/imagem-sessao-3-e1727117584818.webp"
+                 style="cursor:pointer" onclick="playVideo(this)">
+            <source src="https://acquavilleparkshow.com.br/wp-content/uploads/2024/09/acqua-vile.mp4" type="video/mp4">
+          </video>
+          <div class="exp-play-btn" id="playBtn" onclick="playVideo(document.getElementById('mainVideo'))">
+            <div class="play-circle">▶</div>
           </div>
         </div>
 
-        <div class="reveal right">
-          <span class="exp-tag">🌊 A Experiência</span>
-          <h2 class="section-title" style="color:var(--blue-dd)">
-            O dia que a família<br>
-            não esquece<br>
-            <span style="color:var(--orange)">começa aqui</span>
-          </h2>
-          <p class="section-sub" style="color:#4a6070;margin-bottom:0">
-            Em Irecê, quando o sol aperta e bate aquela vontade de um dia diferente —
-            o Acquaville é a resposta. Aqui, a água não é só refresco.
-            É adrenalina, risada e memória que fica pra sempre.
+        <div class="reveal" style="transition-delay:.15s">
+          <span class="section-label">A Experiência</span>
+          <h2 class="section-title">Um dia que a<br><span>família não esquece</span></h2>
+          <p class="section-desc">
+            Assistir não faz jus. Veja o vídeo e sinta como é passar um dia inteiro no Acquaville.
+            Risadas, adrenalina e momentos que ficam na memória.
           </p>
-
-          <div class="exp-features">
-            <div class="feat reveal right d1">
-              <span class="feat-icon">🌊</span>
-              <div class="feat-txt">
-                <strong>Infraestrutura completa</strong>
-                <p>Piscinas, toboáguas, área infantil, restaurante, kiosques e chalets — tudo em um lugar só.</p>
-              </div>
-            </div>
-            <div class="feat reveal right d2">
-              <span class="feat-icon">🛡️</span>
-              <div class="feat-txt">
-                <strong>Segurança em primeiro lugar</strong>
-                <p>Equipe treinada e ambiente supervisionado para você só pensar em se divertir.</p>
-              </div>
-            </div>
-            <div class="feat reveal right d3">
-              <span class="feat-icon">🎯</span>
-              <div class="feat-txt">
-                <strong>Para todo mundo, sem exceção</strong>
-                <p>Do bebê ao avô — cada um encontra sua atração. A família inteira curte de verdade.</p>
-              </div>
-            </div>
-          </div>
-
-          <a href="https://loja.multiclubes.com.br/acquaville/ingressos/ingresso"
-             target="_blank" rel="noopener"
-             class="btn btn-orange">🎫 Quero Garantir Meu Dia</a>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-
-  <!-- WAVE -->
-  <div class="wave-divider" style="background:linear-gradient(160deg,#e8f7ff,#fff)">
-    <svg viewBox="0 0 1440 55" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0,28 C320,55 760,0 1440,28 L1440,55 L0,55 Z"
-            fill="var(--blue-dd)"/>
-    </svg>
-  </div>
-
-
-  <!-- ══════════════════════════════════
-       ATTRACTIONS
-  ══════════════════════════════════ -->
-  <section class="attractions-wrap" id="attractions">
-    <div class="container">
-      <div class="attr-head reveal up">
-        <span class="exp-tag" style="background:linear-gradient(135deg,var(--yellow),#ff9900);color:var(--ink)">🎡 Atrações</span>
-        <h2 class="section-title" style="color:var(--white)">Várias atrações <span style="color:var(--cyan)">esperam por você!</span></h2>
-        <p class="section-sub" style="color:rgba(255,255,255,.7);margin:0 auto">
-          De adrenalina pura a momentos de puro relaxo — tem atração certa para cada momento, cada idade, cada vontade.
-        </p>
-      </div>
-
-      <div class="attr-grid">
-
-        <div class="attr-card reveal pop">
-          <div class="attr-thumb bg1"><span>🏊</span></div>
-          <div class="attr-body">
-            <span class="attr-pill blue">Para todos</span>
-            <h3 class="attr-name">Piscinas</h3>
-            <p class="attr-desc">O coração do Acquaville. Perfeitas para refrescar nos dias quentes e curtir sem pressa com quem você ama.</p>
-          </div>
-        </div>
-
-        <div class="attr-card reveal pop d1">
-          <div class="attr-thumb bg2"><span>🛝</span></div>
-          <div class="attr-body">
-            <span class="attr-pill orange">Adrenalina!</span>
-            <h3 class="attr-name">Toboáguas</h3>
-            <p class="attr-desc">Velocidade, adrenalina e aquela gargalhada épica no final da descida que ninguém esquece nunca!</p>
-          </div>
-        </div>
-
-        <div class="attr-card reveal pop d2">
-          <div class="attr-thumb bg3"><span>🧒</span></div>
-          <div class="attr-body">
-            <span class="attr-pill green">Crianças</span>
-            <h3 class="attr-name">Área Infantil</h3>
-            <p class="attr-desc">Brinquedos especiais para os pequenos. Diversão radical com toda segurança para a criançada se soltar!</p>
-          </div>
-        </div>
-
-        <div class="attr-card reveal pop d1">
-          <div class="attr-thumb bg4"><span>🍺</span></div>
-          <div class="attr-body">
-            <span class="attr-pill purple">Relaxo</span>
-            <h3 class="attr-name">Wet Bar</h3>
-            <p class="attr-desc">Bebida geladinha sem sair da beira da piscina. Deixa os adultos felizes enquanto a criançada se diverte!</p>
-          </div>
-        </div>
-
-        <div class="attr-card reveal pop d2">
-          <div class="attr-thumb bg5"><span>🍽️</span></div>
-          <div class="attr-body">
-            <span class="attr-pill pink">Gastronomia</span>
-            <h3 class="attr-name">Restaurante & Lanchonete</h3>
-            <p class="attr-desc">Refeições completas e lanches para repor a energia sem sair do parque. Opções para todos os gostos!</p>
-          </div>
-        </div>
-
-        <div class="attr-card reveal pop d3">
-          <div class="attr-thumb bg6"><span>🔥</span></div>
-          <div class="attr-body">
-            <span class="attr-pill forest">Grupos</span>
-            <h3 class="attr-name">Kiosques & Churrasqueiras</h3>
-            <p class="attr-desc">Reserve seu kiosque, chame a galera e faça aquele churrasco incrível. O espaço perfeito pra reunir todo mundo!</p>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-
-  <!-- WAVE -->
-  <div class="wave-divider" style="background:var(--blue-dd)">
-    <svg viewBox="0 0 1440 55" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0,28 C360,0 1080,55 1440,28 L1440,55 L0,55 Z" fill="var(--orange)"/>
-    </svg>
-  </div>
-
-
-  <!-- ══════════════════════════════════
-       VIDEO
-  ══════════════════════════════════ -->
-  <section class="video-section" id="video">
-    <div class="container">
-      <div class="vid-inner">
-        <span class="vid-tag">🎬 Veja com seus olhos</span>
-        <h2 class="section-title reveal up" style="color:var(--ink)">
-          Palavras não descrevem.<br>O vídeo, sim!
-        </h2>
-        <p class="section-sub reveal up d1" style="color:rgba(0,30,80,.75);margin:0 auto 40px">
-          Uma experiência que tem que ser vista — e depois, vivida.<br>
-          Confira como é um dia no Acquaville!
-        </p>
-
-        <div class="vid-wrap reveal up d2" id="vidWrap">
-          <video
-            id="parkVid"
-            src="https://acquavilleparkshow.com.br/wp-content/uploads/2024/09/acqua-vile.mp4"
-            poster="https://acquavilleparkshow.com.br/wp-content/uploads/2024/09/imagem-sessao-3-e1727117584818.webp"
-            playsinline
-            preload="none"
-          ></video>
-          <div class="vid-cover" id="vidCover">
-            <div class="play-ring">
-              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- WAVE -->
-  <div class="wave-divider" style="background:linear-gradient(135deg,#ff6b35,#ffd60a)">
-    <svg viewBox="0 0 1440 55" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0,28 C480,55 960,0 1440,28 L1440,55 L0,55 Z" fill="#fff9e0"/>
-    </svg>
-  </div>
-
-
-  <!-- ══════════════════════════════════
-       PERSONAS
-  ══════════════════════════════════ -->
-  <section class="personas-section" id="personas">
-    <div class="container">
-      <div class="pers-head reveal up">
-        <span class="exp-tag" style="background:linear-gradient(135deg,#ff4d8d,#7b2fbe);color:#fff">🎪 Para quem é?</span>
-        <h2 class="section-title" style="color:var(--blue-dd)">
-          Para a criança. Para o jovem.<br>
-          <span style="color:var(--orange)">Para a família inteira!</span>
-        </h2>
-        <p class="section-sub" style="color:#5a7080;margin:0 auto">
-          Não importa quem você é — o Acquaville tem o jeito certo de tornar seu dia especial.
-        </p>
-      </div>
-
-      <div class="pers-grid">
-        <div class="pers-card blue-card reveal pop">
-          <span class="pers-emoji">👨‍👩‍👧‍👦</span>
-          <h3 class="pers-name">Famílias</h3>
-          <p class="pers-desc">Um lugar onde todos se divertem juntos. Pais relaxam enquanto os filhos constroem memórias que duram décadas.</p>
-          <span class="pers-pill">Perfeito pra família!</span>
-        </div>
-        <div class="pers-card orange-card reveal pop d1">
-          <span class="pers-emoji">🤸</span>
-          <h3 class="pers-name">Jovens & Amigos</h3>
-          <p class="pers-desc">Toboágua, adrenalina, risada e foto que todo mundo fica com inveja. O programa que todo mundo queria!</p>
-          <span class="pers-pill">Experiência épica!</span>
-        </div>
-        <div class="pers-card green-card reveal pop d2">
-          <span class="pers-emoji">🚌</span>
-          <h3 class="pers-name">Grupos & Excursões</h3>
-          <p class="pers-desc">Escola, empresa, clube — organizamos tudo para o seu grupo viver um dia que ninguém vai esquecer!</p>
-          <span class="pers-pill">Condições especiais!</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- WAVE -->
-  <div class="wave-divider" style="background:#fff9e0">
-    <svg viewBox="0 0 1440 55" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0,28 C320,0 900,55 1440,28 L1440,0 L0,0 Z" fill="#10002b"/>
-    </svg>
-  </div>
-
-
-  <!-- ══════════════════════════════════
-       PASSPORT
-  ══════════════════════════════════ -->
-  <section class="passport-section" id="passport">
-    <div class="container">
-      <div class="pass-grid">
-
-        <div class="pass-content reveal left">
-          <span class="exp-tag">🏆 Passaporte Anual</span>
-          <h2 class="section-title" style="color:var(--white)">
-            Venha toda semana.<br>
-            <span style="color:var(--yellow)">Sem limite!</span>
-          </h2>
-          <p class="section-sub" style="color:rgba(255,255,255,.72)">
-            Com o Passaporte Acquaville você paga uma vez e aproveita a temporada inteira.
-            O melhor investimento em diversão do ano!
-          </p>
-
-          <ul class="pass-list">
-            <li>Acesso ilimitado durante toda a temporada</li>
-            <li>Sem filas na bilheteria — entrada direta</li>
-            <li>Desconto em restaurante e lanchonete</li>
-            <li>Válido para qualquer data do calendário</li>
-            <li>Benefícios exclusivos para passaportistas</li>
+          <ul class="exp-list">
+            <li><strong>Infraestrutura completa</strong> — estacionamento, vestiários e área de convivência</li>
+            <li><strong>Segurança em primeiro lugar</strong> — salva-vidas e equipe treinada em todos os pontos</li>
+            <li><strong>Atrações para todos os gostos</strong> — do radical ao tranquilo, tem para todo mundo</li>
+            <li><strong>Gastronomia dentro do parque</strong> — não precisa sair para comer bem</li>
+            <li><strong>Ambiente limpo e organizado</strong> — para você curtir sem preocupação</li>
           </ul>
-
-          <a href="https://loja.multiclubes.com.br/acquaville/titulos/acquavilleparkshow"
-             target="_blank" rel="noopener"
-             class="btn btn-yellow">🌊 Quero Meu Passaporte!</a>
-        </div>
-
-        <div class="pass-card reveal right d2">
-          <div class="pass-card-icon">🏆</div>
-          <h3 class="pass-card-title">Passaporte Acquaville</h3>
-          <p class="pass-card-sub">Acesso ilimitado · Temporada 2025/2026</p>
-          <div class="pass-card-body">
-            <div class="lbl">Titularidade</div>
-            <div class="val">Seu nome aqui ✓</div>
-            <div class="hint">Acquaville Park Show · Irecê, BA</div>
+          <div style="margin-top:32px">
+            <a href="https://loja.multiclubes.com.br/acquaville/ingressos/ingresso"
+               target="_blank" class="btn btn-primary">🎫 Quero meu ingresso</a>
           </div>
-          <a href="https://loja.multiclubes.com.br/acquaville/titulos/acquavilleparkshow"
-             target="_blank" rel="noopener"
-             class="btn btn-orange">Adquirir Passaporte →</a>
-          <br>
-          <a href="https://portal.multiclubes.com.br/acquaville/login.aspx"
-             target="_blank" rel="noopener"
-             class="pass-portal">Já sou passaportista → Acessar Portal</a>
         </div>
-
       </div>
     </div>
   </section>
 
-
-  <!-- WAVE -->
-  <div class="wave-divider" style="background:#10002b">
-    <svg viewBox="0 0 1440 55" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0,28 C480,55 960,0 1440,28 L1440,55 L0,55 Z" fill="#f0f8ff"/>
-    </svg>
-  </div>
-
-
-  <!-- ══════════════════════════════════
-       TESTIMONIALS
-  ══════════════════════════════════ -->
-  <section class="testimonials-section" id="testimonials">
+  <!-- ═══════════════════════════════════════════
+       INGRESSOS
+  ═══════════════════════════════════════════ -->
+  <section class="tickets" id="ingressos">
     <div class="container">
-      <div class="test-head reveal up">
-        <span class="exp-tag" style="background:linear-gradient(135deg,var(--pink),var(--purple));color:#fff">⭐ O que dizem por aí</span>
-        <h2 class="section-title" style="color:var(--blue-dd)">
-          Mais de 5.000 famílias já<br>
-          <span style="color:var(--orange)">mergulharam nessa experiência!</span>
-        </h2>
-        <p class="section-sub" style="color:#5a7080;margin:0 auto">
-          Não acredita? Veja o que as famílias de Irecê estão falando!
+      <div class="tickets-header reveal">
+        <span class="section-label">Ingressos & Planos</span>
+        <h2 class="section-title">Escolha sua<br><span>forma de entrar</span></h2>
+        <p class="section-desc">
+          Venha uma vez ou o ano todo — temos a opção certa para você e para o seu grupo.
         </p>
       </div>
 
-      <div class="test-grid">
-        <div class="test-card reveal up">
-          <div class="test-stars">★★★★★</div>
-          <p class="test-text">"Levei minha família inteira — crianças, adultos, todo mundo se divertiu muito! As crianças não queriam sair de jeito nenhum. Com certeza voltamos!"</p>
-          <div class="test-author">
-            <div class="t-avatar a1">M</div>
-            <div class="t-info"><strong>Maria Aparecida S.</strong><span>Irecê, BA · Família de 5</span></div>
+      <div class="tickets-grid">
+
+        <div class="ticket-card reveal">
+          <span class="ticket-icon">🎫</span>
+          <div class="ticket-name">Ingresso Avulso</div>
+          <p class="ticket-desc">Perfeito para quem vai curtir o final de semana com a família.</p>
+          <ul class="ticket-features">
+            <li><span class="tick">✓</span> Acesso no dia à todas as atrações</li>
+            <li><span class="tick">✓</span> Validade: dia inteiro</li>
+            <li><span class="tick">✓</span> Disponível fins de semana</li>
+          </ul>
+          <div class="ticket-cta">
+            <a href="https://loja.multiclubes.com.br/acquaville/ingressos/ingresso"
+               target="_blank" class="btn btn-dark">Comprar Ingresso</a>
           </div>
         </div>
-        <div class="test-card reveal up d1">
-          <div class="test-stars">★★★★★</div>
-          <p class="test-text">"Fomos com a galera e foi incrível! Os toboáguas são demais, pessoal super atencioso. Já tô organizando pra voltar no próximo feriado!"</p>
-          <div class="test-author">
-            <div class="t-avatar a2">R</div>
-            <div class="t-info"><strong>Rafael S.</strong><span>Irecê, BA · Grupo de amigos</span></div>
+
+        <div class="ticket-card featured reveal" style="transition-delay:.1s">
+          <span class="ticket-icon">🏅</span>
+          <div class="ticket-name">Passaporte Anual</div>
+          <p class="ticket-desc">Venha quantas vezes quiser. O melhor custo-benefício para os fãs do parque.</p>
+          <ul class="ticket-features">
+            <li><span class="tick">✓</span> Acesso ilimitado por 1 ano</li>
+            <li><span class="tick">✓</span> Não precisa comprar ingresso toda vez</li>
+            <li><span class="tick">✓</span> Melhor custo-benefício</li>
+          </ul>
+          <div class="ticket-cta">
+            <a href="https://loja.multiclubes.com.br/acquaville/titulos/acquavilleparkshow"
+               target="_blank" class="btn btn-secondary" style="background:var(--orange); color:#fff">Assinar Passaporte</a>
           </div>
         </div>
-        <div class="test-card reveal up d2">
-          <div class="test-stars">★★★★★</div>
-          <p class="test-text">"Organizei a excursão da escola e foi um sucesso! A equipe ajudou em tudo, as crianças ficaram encantadas. Recomendo demais!"</p>
-          <div class="test-author">
-            <div class="t-avatar a3">A</div>
-            <div class="t-info"><strong>Ana Lima</strong><span>Professora · Excursão escolar</span></div>
+
+        <div class="ticket-card reveal" style="transition-delay:.2s">
+          <span class="ticket-icon">🎂</span>
+          <div class="ticket-name">Pacote Aniversário</div>
+          <p class="ticket-desc">Comemore seu aniversário do jeito que merece — dentro do parque!</p>
+          <ul class="ticket-features">
+            <li><span class="tick">✓</span> Área reservada para seu grupo</li>
+            <li><span class="tick">✓</span> Estrutura completa</li>
+            <li><span class="tick">✓</span> Consultoria personalizada</li>
+          </ul>
+          <div class="ticket-cta">
+            <a href="https://api.whatsapp.com/send/?phone=557499911913"
+               target="_blank" class="btn btn-dark">Falar pelo WhatsApp</a>
           </div>
         </div>
+
+      </div>
+
+      <div style="text-align:center; margin-top:36px; reveal">
+        <p style="font-size:.9rem; color:var(--text)">
+          Já é cliente?
+          <a href="https://portal.multiclubes.com.br/acquaville/login.aspx" target="_blank"
+             style="color:var(--blue); font-weight:800">Acesse o portal do associado →</a>
+        </p>
       </div>
     </div>
   </section>
 
-
-  <!-- WAVE -->
-  <div class="wave-divider" style="background:#f0f8ff">
-    <svg viewBox="0 0 1440 55" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0,28 C360,55 1080,0 1440,28 L1440,0 L0,0 Z" fill="#e0fff4"/>
-    </svg>
-  </div>
-
-
-  <!-- ══════════════════════════════════
-       EXCURSIONS
-  ══════════════════════════════════ -->
-  <section class="excursions-section" id="excursions">
+  <!-- ═══════════════════════════════════════════
+       EXCURSÕES
+  ═══════════════════════════════════════════ -->
+  <section class="excursions" id="excursoes">
     <div class="container">
-      <div class="excur-grid">
-        <div class="excur-content reveal left">
-          <span class="exp-tag" style="background:linear-gradient(135deg,var(--green),#009e73)">🚌 Grupos & Excursões</span>
-          <h2 class="section-title" style="color:var(--blue-dd)">
-            Um dia inesquecível<br>
-            <span style="color:var(--green)">para o seu grupo!</span>
-          </h2>
-          <p class="section-sub" style="color:#3a5060">
-            Escola, empresa, clube ou turma — montamos o melhor pacote com condições especiais para grupos acima de 15 pessoas.
+      <div class="exc-inner">
+        <div class="exc-content reveal">
+          <span class="section-label">Excursões & Grupos</span>
+          <h2 class="section-title">Traga seu grupo<br>para o Acquaville</h2>
+          <p class="section-desc">
+            Escola, empresa, igreja, turma de amigos — organizamos pacotes especiais para grupos de todos os tamanhos.
           </p>
-          <div class="steps">
-            <div class="step reveal left d1">
-              <div class="step-n">1</div>
-              <div class="step-txt">
-                <strong>Entre em contato</strong>
-                <p>Mande mensagem no WhatsApp com tamanho do grupo e data desejada.</p>
+
+          <div class="exc-items">
+            <div class="exc-item">
+              <div class="exc-item-icon">🚌</div>
+              <div class="exc-item-text">
+                <strong>Excursões escolares</strong>
+                <span>Pacote especial para escolas com preços diferenciados</span>
               </div>
             </div>
-            <div class="step reveal left d2">
-              <div class="step-n">2</div>
-              <div class="step-txt">
-                <strong>Receba sua proposta</strong>
-                <p>Nossa equipe monta um pacote personalizado com condições especiais.</p>
+            <div class="exc-item">
+              <div class="exc-item-icon">🏢</div>
+              <div class="exc-item-text">
+                <strong>Eventos corporativos</strong>
+                <span>Integração de equipes e confraternizações em ambiente único</span>
               </div>
             </div>
-            <div class="step reveal left d3">
-              <div class="step-n">3</div>
-              <div class="step-txt">
-                <strong>Confirme e divirta-se!</strong>
-                <p>Reserve a data, venha com o grupo e deixa o resto com a gente!</p>
+            <div class="exc-item">
+              <div class="exc-item-icon">🎉</div>
+              <div class="exc-item-text">
+                <strong>Festas e comemorações</strong>
+                <span>Kiosques e churrasqueiras disponíveis para reserva de grupo</span>
               </div>
             </div>
           </div>
-          <a href="https://api.whatsapp.com/send?phone=557499031153&text=Olá!%20Quero%20organizar%20uma%20excursão%20para%20o%20Acquaville."
-             target="_blank" rel="noopener"
-             class="btn btn-cyan">🚌 Quero Organizar uma Excursão!</a>
+
+          <div class="exc-actions">
+            <a href="https://api.whatsapp.com/send?phone=557499031153"
+               target="_blank" class="btn btn-primary">
+              💬 Falar com Excursões
+            </a>
+            <a href="tel:+557499031153" class="btn btn-outline">
+              📞 (74) 99031-1153
+            </a>
+          </div>
         </div>
 
-        <div class="excur-panel reveal right d2">
-          <span class="icon">🎉</span>
-          <h3>Aqui cabe todo mundo!</h3>
-          <p>Escolas, empresas, igrejas, times, aniversários em grupo — estamos prontos pra fazer seu evento ser incrível!</p>
-          <a href="https://api.whatsapp.com/send?phone=557499031153&text=Olá!%20Quero%20organizar%20uma%20excursão%20para%20o%20Acquaville."
-             target="_blank" rel="noopener"
-             class="btn btn-ghost">📲 Falar Agora no WhatsApp</a>
+        <div class="exc-image reveal" style="transition-delay:.15s">
+          <img src="https://acquavilleparkshow.com.br/wp-content/uploads/2024/09/imagem-sessao-3-e1727117584818.webp"
+               alt="Excursões Acquaville">
         </div>
       </div>
     </div>
   </section>
 
-
-  <!-- ══════════════════════════════════
-       INFO
-  ══════════════════════════════════ -->
-  <section class="info-section" id="info">
+  <!-- ═══════════════════════════════════════════
+       LOCALIZAÇÃO
+  ═══════════════════════════════════════════ -->
+  <section class="location" id="localizacao">
     <div class="container">
-      <div class="info-head reveal up">
-        <span class="exp-tag" style="background:linear-gradient(135deg,var(--yellow),#ff9900);color:var(--ink)">📋 Informações</span>
-        <h2 class="section-title" style="color:var(--blue-dd)">
-          Tudo que você precisa saber<br>
-          <span style="color:var(--blue)">antes de vir!</span>
-        </h2>
-        <p class="section-sub" style="color:#5a7080;margin:0 auto">
-          Prepare-se para o melhor dia da semana!
-        </p>
+      <div style="margin-bottom:56px" class="reveal">
+        <span class="section-label">Como chegar</span>
+        <h2 class="section-title">Localização &<br><span>Contato</span></h2>
       </div>
 
-      <div class="info-grid">
-        <div class="info-card reveal up">
-          <div class="info-icon">🕐</div>
-          <div class="info-lbl">Horário</div>
-          <p class="info-txt"><strong>Sábados, domingos e feriados</strong><br>9h às 18h<br><br>Confira o calendário completo no site de ingressos.</p>
+      <div class="location-grid">
+        <div class="location-info">
+
+          <div class="loc-card reveal">
+            <div class="loc-icon">📍</div>
+            <div>
+              <div class="loc-card-title">Endereço</div>
+              <div class="loc-card-text">
+                BA-052, Km 354<br>Irecê — Bahia, Brasil
+              </div>
+            </div>
+          </div>
+
+          <div class="loc-card reveal" style="transition-delay:.05s">
+            <div class="loc-icon">📞</div>
+            <div>
+              <div class="loc-card-title">Telefone & WhatsApp</div>
+              <div class="loc-card-text">
+                <a href="tel:+557499911913">(74) 99991-1913</a> — Atendimento geral<br>
+                <a href="tel:+557499031153">(74) 99031-1153</a> — Excursões
+              </div>
+            </div>
+          </div>
+
+          <div class="loc-card reveal" style="transition-delay:.1s">
+            <div class="loc-icon">📅</div>
+            <div>
+              <div class="loc-card-title">Horário de Funcionamento</div>
+              <div class="loc-card-text">
+                Fins de semana e feriados<br>
+                Das 9h às 17h — verifique pelo WhatsApp
+              </div>
+            </div>
+          </div>
+
+          <div class="loc-card reveal" style="transition-delay:.15s">
+            <div class="loc-icon">📸</div>
+            <div>
+              <div class="loc-card-title">Redes Sociais</div>
+              <div class="loc-card-text">
+                <a href="https://www.instagram.com/acquavilleirece/" target="_blank">
+                  @acquavilleirece no Instagram
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div style="display:flex; gap:12px; flex-wrap:wrap;" class="reveal" style="transition-delay:.2s">
+            <a href="https://api.whatsapp.com/send/?phone=557499911913"
+               target="_blank" class="btn btn-primary" style="background:#25D366">
+              💬 WhatsApp
+            </a>
+            <a href="https://www.instagram.com/acquavilleirece/"
+               target="_blank" class="btn btn-blue">
+              📸 Instagram
+            </a>
+          </div>
         </div>
-        <div class="info-card reveal up d1">
-          <div class="info-icon">📍</div>
-          <div class="info-lbl">Como Chegar</div>
-          <p class="info-txt"><strong>BA-052, Km 354</strong><br>Irecê, BA — CEP 44900-000<br><br><a href="https://maps.google.com/?q=Acquaville+Park+Show+Irece+BA" target="_blank">Ver no Google Maps →</a></p>
-        </div>
-        <div class="info-card reveal up d2">
-          <div class="info-icon">🎫</div>
-          <div class="info-lbl">Ingressos</div>
-          <p class="info-txt">Crianças 0–2 anos entram <strong>grátis</strong> com adulto pagante.<br><br>Desconto garantido comprando com antecedência. Reagendamento disponível uma vez!</p>
-        </div>
-        <div class="info-card reveal up d1">
-          <div class="info-icon">📋</div>
-          <div class="info-lbl">Documentos</div>
-          <p class="info-txt">Apresentar <strong>CPF ou RG</strong> na bilheteria.<br><br>Cancelamento com reembolso integral em até 7 dias após a compra.</p>
-        </div>
-        <div class="info-card reveal up d2">
-          <div class="info-icon">🎂</div>
-          <div class="info-lbl">Aniversários</div>
-          <p class="info-txt">Celebre seu aniversário aqui!<br><br>Pacote especial com entrada de bolo. <strong>Reserva obrigatória.</strong><br><br><a href="https://api.whatsapp.com/send/?phone=557499911913&text=Quero%20saber%20sobre%20pacote%20de%20aniversário!" target="_blank">Consultar pacote →</a></p>
-        </div>
-        <div class="info-card reveal up d3">
-          <div class="info-icon">💬</div>
-          <div class="info-lbl">Fale com a Gente</div>
-          <p class="info-txt"><strong>Atendimento:</strong><br><a href="https://api.whatsapp.com/send/?phone=557499911913" target="_blank">(74) 99991-1913</a><br><br><strong>Excursões:</strong><br><a href="https://api.whatsapp.com/send?phone=557499031153" target="_blank">(74) 99903-1153</a><br><br><a href="https://www.instagram.com/acquavilleirece" target="_blank">@acquavilleirece</a></p>
+
+        <div class="map-embed reveal" style="transition-delay:.2s">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3882.0!2d-41.855!3d-11.305!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sAcquaville+Park+Show!5e0!3m2!1spt-BR!2sbr!4v1234567890"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Localização Acquaville Park Show">
+          </iframe>
         </div>
       </div>
     </div>
   </section>
 
-
-  <!-- ══════════════════════════════════
-       FINAL CTA
-  ══════════════════════════════════ -->
-  <section class="final-cta">
-    <span class="splash s1">🌊</span>
-    <span class="splash s2">💦</span>
+  <!-- ═══════════════════════════════════════════
+       CTA FINAL
+  ═══════════════════════════════════════════ -->
+  <section class="cta-final">
     <div class="container">
-      <div class="final-inner reveal up">
-        <h2>
-          O sábado mais gostoso da sua<br>
-          família começa com um clique! 🎫
-        </h2>
-        <p>
-          Garanta seu ingresso com desconto agora.<br>
-          A diversão está esperando por você em Irecê, BA!
-        </p>
-        <div class="final-btns">
-          <a href="https://loja.multiclubes.com.br/acquaville/ingressos/ingresso"
-             target="_blank" rel="noopener"
-             class="btn btn-white btn-lg">🎫 Comprar Ingresso com Desconto</a>
-          <a href="https://api.whatsapp.com/send/?phone=557499911913&text=Olá!%20Quero%20saber%20mais%20sobre%20o%20Acquaville!"
-             target="_blank" rel="noopener"
-             class="btn btn-ghost btn-lg">💬 Tirar Dúvidas no WhatsApp</a>
-        </div>
+      <h2>Pronto para se divertir?</h2>
+      <p>Garanta seu ingresso agora e viva um dia inesquecível no único parque aquático de Irecê.</p>
+      <div class="cta-final-actions">
+        <a href="https://loja.multiclubes.com.br/acquaville/ingressos/ingresso"
+           target="_blank" class="btn btn-secondary">
+          🎫 Comprar Ingresso
+        </a>
+        <a href="https://loja.multiclubes.com.br/acquaville/titulos/acquavilleparkshow"
+           target="_blank" class="btn btn-outline">
+          🏅 Assinar Passaporte Anual
+        </a>
       </div>
     </div>
   </section>
 
-
-  <!-- ══════════════════════════════════
+  <!-- ═══════════════════════════════════════════
        FOOTER
-  ══════════════════════════════════ -->
+  ═══════════════════════════════════════════ -->
   <footer class="footer">
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
-          <div class="f-logo">ACQUA<span>VILLE</span> 🌊</div>
-          <p>O único parque aquático do coração da Chapada Diamantina. Diversão, segurança e memórias inesquecíveis em Irecê, BA.</p>
+          <img src="https://acquavilleparkshow.com.br/wp-content/uploads/2024/09/logotipo.webp"
+               alt="Acquaville Park Show"
+               onerror="this.style.display='none'">
+          <p>O único parque aquático de Irecê, BA. Diversão, emoção e muita adrenalina para toda a família desde 2019.</p>
+          <div class="footer-social">
+            <a href="https://www.instagram.com/acquavilleirece/" target="_blank" class="social-btn">📸</a>
+            <a href="https://api.whatsapp.com/send/?phone=557499911913" target="_blank" class="social-btn">💬</a>
+          </div>
         </div>
-        <div class="footer-col">
-          <h4>Ingressos</h4>
-          <ul class="footer-links">
-            <li><a href="https://loja.multiclubes.com.br/acquaville/ingressos/ingresso" target="_blank">Comprar Ingresso</a></li>
-            <li><a href="https://loja.multiclubes.com.br/acquaville/titulos/acquavilleparkshow" target="_blank">Passaporte Anual</a></li>
-            <li><a href="https://portal.multiclubes.com.br/acquaville/login.aspx" target="_blank">Portal Passaportista</a></li>
-            <li><a href="https://api.whatsapp.com/send?phone=557499031153" target="_blank">Excursões</a></li>
-          </ul>
-        </div>
+
         <div class="footer-col">
           <h4>O Parque</h4>
-          <ul class="footer-links">
-            <li><a href="#attractions">Atrações</a></li>
-            <li><a href="#passport">Passaporte</a></li>
-            <li><a href="#excursions">Excursões</a></li>
-            <li><a href="#info">Informações</a></li>
+          <ul>
+            <li><a href="#sobre">Sobre o Acquaville</a></li>
+            <li><a href="#atracoes">Atrações</a></li>
+            <li><a href="#galeria">Galeria de Fotos</a></li>
+            <li><a href="#video">Assista ao vídeo</a></li>
           </ul>
         </div>
+
+        <div class="footer-col">
+          <h4>Ingressos</h4>
+          <ul>
+            <li><a href="https://loja.multiclubes.com.br/acquaville/ingressos/ingresso" target="_blank">Ingresso Avulso</a></li>
+            <li><a href="https://loja.multiclubes.com.br/acquaville/titulos/acquavilleparkshow" target="_blank">Passaporte Anual</a></li>
+            <li><a href="https://api.whatsapp.com/send/?phone=557499911913" target="_blank">Pacote Aniversário</a></li>
+            <li><a href="https://portal.multiclubes.com.br/acquaville/login.aspx" target="_blank">Portal do Associado</a></li>
+          </ul>
+        </div>
+
         <div class="footer-col">
           <h4>Contato</h4>
-          <div class="f-contact-row"><span class="ico">📱</span><a href="https://api.whatsapp.com/send/?phone=557499911913" target="_blank">(74) 99991-1913</a></div>
-          <div class="f-contact-row"><span class="ico">📍</span><span>BA-052, Km 354<br>Irecê, BA</span></div>
-          <div class="f-contact-row"><span class="ico">🕐</span><span>Sáb, Dom e Feriados<br>9h às 18h</span></div>
+          <ul>
+            <li><a href="tel:+557499911913">(74) 99991-1913</a></li>
+            <li><a href="tel:+557499031153">(74) 99031-1153</a></li>
+            <li><a href="https://api.whatsapp.com/send/?phone=557499911913" target="_blank">WhatsApp Geral</a></li>
+            <li><a href="https://api.whatsapp.com/send?phone=557499031153" target="_blank">WhatsApp Excursões</a></li>
+          </ul>
         </div>
       </div>
+
       <div class="footer-bottom">
-        <p>© 2025 Acquaville Park Show Ltda · Todos os direitos reservados</p>
-        <div class="social-row">
-          <a href="https://www.instagram.com/acquavilleirece" target="_blank" class="soc-link" title="Instagram">📷</a>
-          <a href="https://api.whatsapp.com/send/?phone=557499911913" target="_blank" class="soc-link" title="WhatsApp">💬</a>
-          <a href="https://www.facebook.com/acquavillebahia" target="_blank" class="soc-link" title="Facebook">👤</a>
-        </div>
+        <p>© 2025 Acquaville Park Show. Todos os direitos reservados.</p>
+        <p>BA-052, Km 354 — Irecê, Bahia</p>
       </div>
     </div>
   </footer>
 
-
-  <!-- ══════════════════════════════════
-       FLOATING WHATSAPP
-  ══════════════════════════════════ -->
-  <a href="https://api.whatsapp.com/send/?phone=557499911913&text=Olá!%20Quero%20saber%20mais%20sobre%20o%20Acquaville!"
-     target="_blank" rel="noopener"
-     class="wa-float">
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-    </svg>
-    <span>Falar no WhatsApp</span>
+  <!-- WhatsApp float -->
+  <a href="https://api.whatsapp.com/send/?phone=557499911913"
+     target="_blank" class="whatsapp-float" title="Fale conosco no WhatsApp">
+    💬
   </a>
 
-
-  <!-- ══════════════════════════════════
-       SCRIPTS
-  ══════════════════════════════════ -->
   <script>
-    // ── Navbar ──────────────────────────────────
-    const nav = document.getElementById('navbar');
-    window.addEventListener('scroll', () => nav.classList.toggle('solid', scrollY > 50), {passive:true});
-
-    // ── Mobile menu ──────────────────────────────
-    document.getElementById('hamburger').addEventListener('click', () => document.getElementById('mobMenu').classList.add('open'));
-    document.getElementById('mobClose').addEventListener('click', closeMob);
-    function closeMob() { document.getElementById('mobMenu').classList.remove('open'); }
-
-    // ── Bubbles ──────────────────────────────────
-    const bubbleContainer = document.getElementById('bubbles');
-    function makeBubble() {
-      const b = document.createElement('div');
-      b.className = 'bubble';
-      const size = 20 + Math.random() * 60;
-      b.style.cssText = `
-        width:${size}px; height:${size}px;
-        left:${Math.random()*100}%;
-        animation-duration:${8+Math.random()*12}s;
-        animation-delay:${Math.random()*8}s;
-      `;
-      bubbleContainer.appendChild(b);
-      setTimeout(() => b.remove(), 22000);
-    }
-    // spawn initial batch
-    for(let i=0;i<12;i++) makeBubble();
-    setInterval(makeBubble, 1800);
-
-    // ── Video ────────────────────────────────────
-    const vid   = document.getElementById('parkVid');
-    const cover = document.getElementById('vidCover');
-    if(cover && vid) {
-      cover.addEventListener('click', () => {
-        cover.style.display = 'none';
-        vid.setAttribute('controls','');
-        vid.play();
-      });
-    }
-
-    // ── Scroll reveal ────────────────────────────
-    const io = new IntersectionObserver(entries =>
-      entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('show'); }),
-      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
-    );
-    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-
-    // ── Smooth scroll ────────────────────────────
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-      a.addEventListener('click', e => {
-        const t = document.querySelector(a.getAttribute('href'));
-        if(t){ e.preventDefault(); t.scrollIntoView({behavior:'smooth'}); }
-      });
+    // ── Navbar scroll ──
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 60);
     });
+
+    // ── Mobile menu ──
+    function toggleMenu() {
+      document.getElementById('mobileMenu').classList.toggle('open');
+    }
+    // close on outside click
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('#navbar') && !e.target.closest('#mobileMenu')) {
+        document.getElementById('mobileMenu').classList.remove('open');
+      }
+    });
+
+    // ── Video play ──
+    function playVideo(video) {
+      const btn = document.getElementById('playBtn');
+      if (video.paused) {
+        video.play();
+        video.muted = false;
+        btn.classList.add('hidden');
+      } else {
+        video.pause();
+        btn.classList.remove('hidden');
+      }
+    }
+
+    // ── Scroll reveal ──
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
   </script>
 
 </body>
